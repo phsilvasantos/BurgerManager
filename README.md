@@ -10,14 +10,21 @@ podem ser feitos pessoalmente ou a distância (telefone, site, etc.);
 - **Fornecedores:**
 - **Gerente:**
 
+As opções de pedido incluem:
+- **Hamburger de carne:**
+- **Hamburger de frango:**
+- **Cheeseburger:**
+- **Refrigerante:**
+- **Suco:**
+
 ## Funcionalidades
-1. Anotar pedido
-2. Preparar pedido
-3. Embalar pedido
-4. Entregar pedido
-5. Adquirir suprimentos
-6. Contratar funcionário
-7. Demitir funcionário
-8. Alterar dados de funcionário
-9. Remunerar funcionários
-10. Emitir relatórios
+1. **Anotar pedido:**
+2. **Preparar pedido:**
+3. **Embalar pedido:**
+4. **Entregar pedido:**
+5. **Adquirir suprimentos:**
+6. **Contratar funcionário:**
+7. **Demitir funcionário:**
+8. **Alterar dados de funcionário:**
+9. **Remunerar funcionários:**
+10. **Emitir relatórios:**
