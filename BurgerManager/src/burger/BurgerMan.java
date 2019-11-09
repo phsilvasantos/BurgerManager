@@ -1,6 +1,8 @@
 package burger;
 
-import burger.action.*;
+import burger.builder.employee.EmployeeBuilder;
+import burger.builder.employee.ManagerBuilder;
+import burger.model.employee.Employee;
 
 import java.util.Scanner;
 
@@ -8,29 +10,16 @@ public class BurgerMan {
    public static final Scanner input = new Scanner(System.in);
 
    public static void main(String[] args) {
-      Action[] actions = new Action[] {};
+      (new ManagerBuilder()).build();
 
       while (true) {
-         System.out.println("---\n0 - sair");
-         int a;
-         for (a = 1; a <= actions.length; a++)
-            System.out.println(a + " - " + actions[a - 1]);
-         System.out.print("---\nAção: ");
+         System.out.print("login ('-' para encerrar): ");
+         String login = input.nextLine();
+         if (login.isEmpty() || login.equals("-"))
+            break;
 
-         try {
-            a = Integer.parseInt(input.nextLine());
-            if (a == 0)
-               break;
-
-            actions[a - 1].execute();
-         }
-
-         catch (NumberFormatException | IndexOutOfBoundsException ex) {
-            System.out.println("<!> Entrada inválida.");
-         }
-         catch (Exception ex) {
-            System.out.println("<!> " + ex.getMessage());
-         }
+         Employee employee = EmployeeBuilder.get(login);
+         employee.callAction();
       }
    }
 }
