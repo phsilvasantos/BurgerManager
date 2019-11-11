@@ -19,7 +19,14 @@ public class BurgerMan {
             break;
 
          Employee employee = EmployeeBuilder.get(login);
-         employee.callAction();
+
+         try {
+            employee.signIn();
+         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            System.out.println("<!> Entrada inválida.");
+         } catch (Exception ex) {
+            System.out.println("<!> " + ex.getMessage());
+         }
       }
    }
 }

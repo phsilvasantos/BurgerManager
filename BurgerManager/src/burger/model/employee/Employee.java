@@ -8,7 +8,7 @@ public abstract class Employee {
       this.login = login;
    }
 
-   public abstract void callAction();
+   public abstract void signIn() throws Exception;
 
    public String getLogin() {
       return login;
