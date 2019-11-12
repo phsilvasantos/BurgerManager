@@ -10,10 +10,15 @@ public class BurgerMan {
    public static final Scanner input = new Scanner(System.in);
 
    public static void main(String[] args) {
-      (new ManagerBuilder()).build();
+      System.out.println("Dados do gerente:");
+      try {
+         (new ManagerBuilder()).build();
+      } catch (Exception ex) {
+         System.out.println("<!> " + ex.getMessage());
+      }
 
       while (true) {
-         System.out.print("login ('-' para encerrar): ");
+         System.out.print("Login ('-' para encerrar): ");
          String login = input.nextLine();
          if (login.isEmpty() || login.equals("-"))
             break;

@@ -1,5 +1,6 @@
 package burger.builder.employee;
 
+import burger.BurgerMan;
 import burger.builder.Builder;
 import burger.model.employee.Employee;
 
@@ -22,5 +23,16 @@ public abstract class EmployeeBuilder implements Builder<Employee> {
 
    public static Employee remove(String key) {
       return employees.remove(key);
+   }
+
+   protected void setInfo(Employee employee) throws Exception {
+      System.out.print("Nome: ");
+      employee.setName(BurgerMan.input.nextLine());
+
+      System.out.print("CPF: ");
+      employee.setCPF(BurgerMan.input.nextLine());
+
+      System.out.print("E-mail: ");
+      employee.setEmail(BurgerMan.input.nextLine());
    }
 }
