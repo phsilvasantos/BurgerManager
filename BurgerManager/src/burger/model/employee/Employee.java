@@ -5,7 +5,8 @@ import burger.action.Action;
 
 public abstract class Employee {
    protected Action[] actions;
-   private String cpf, email, login, name;
+   private String cpf, email, name;
+   public final String login;
    private static final Exception formatException = new Exception("Formato incorreto.");
 
    public Employee(String login) {
@@ -18,10 +19,6 @@ public abstract class Employee {
 
    public String getEmail() {
       return email;
-   }
-
-   public String getLogin() {
-      return login;
    }
 
    public String getName() {

@@ -1,13 +1,15 @@
 package burger.action;
 
 import burger.BurgerMan;
+import burger.builder.employee.CasherBuilder;
 import burger.builder.employee.EmployeeBuilder;
+import burger.model.employee.Employee;
 
 public class AddEmployee implements Action {
    private EmployeeBuilder[] builders;
 
    public AddEmployee() {
-      builders = new EmployeeBuilder[] {};
+      builders = new EmployeeBuilder[] {new CasherBuilder()};
    }
 
    public void execute() throws Exception {
@@ -18,7 +20,10 @@ public class AddEmployee implements Action {
       System.out.print("---\nCargo: ");
       e = Integer.parseInt(BurgerMan.input.nextLine());
 
-      builders[e].build();
+      Employee employee = builders[e].build();
+
+      System.out.println("Funcionário '" + employee.login + ": " +
+            employee.getName() + "' adicionado.");
    }
 
    @Override
