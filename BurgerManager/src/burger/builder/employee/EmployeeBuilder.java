@@ -8,22 +8,16 @@ import java.util.HashMap;
 
 public abstract class EmployeeBuilder implements Builder<Employee> {
    private static final HashMap<String, Employee> employees = new HashMap<>();
-   protected static final Exception existentException = new Exception("Funcionário já existente.");
+   private static final Exception notFoundException = new Exception("Funcionário não encontrado.");
 
-   public static boolean contains(String key) {
-      return employees.containsKey(key);
-   }
-
-   public static Employee get(String key) {
+   public static Employee get(String key) throws Exception {
+      if (!employees.containsKey(key))
+         throw notFoundException;
       return employees.get(key);
    }
 
    protected Employee put(Employee employee) {
       return employees.put(employee.login, employee);
-   }
-
-   protected Employee remove(String key) {
-      return employees.remove(key);
    }
 
    protected void setInfo(Employee employee) throws Exception {

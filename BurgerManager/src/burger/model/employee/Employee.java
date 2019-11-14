@@ -4,7 +4,6 @@ import burger.BurgerMan;
 import burger.action.Action;
 
 public abstract class Employee {
-   protected Action[] actions;
    private String cpf, email, name;
    public final String login;
    private static final Exception formatException = new Exception("Formato incorreto.");
@@ -43,18 +42,27 @@ public abstract class Employee {
       this.name = name;
    }
 
-   public void signIn() throws Exception {
+   public abstract void signIn();
+
+   protected void signIn(Action... actions) {
       while (true) {
          System.out.println("---\n0 - sair");
          int a;
          for (a = 1; a <= actions.length; a++)
             System.out.println(a + " - " + actions[a - 1]);
          System.out.print("---\nAção: ");
-         a = Integer.parseInt(BurgerMan.input.nextLine());
-         if (a == 0)
-            break;
 
-         actions[a - 1].execute();
+         try {
+            a = Integer.parseInt(BurgerMan.input.nextLine());
+            if (a == 0)
+               break;
+
+            actions[a - 1].execute();
+         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            System.out.println("<!> Entrada inválida.");
+         } catch (Exception ex) {
+            System.out.println("<!> " + ex.getMessage());
+         }
       }
    }
 }

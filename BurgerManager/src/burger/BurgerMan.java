@@ -14,8 +14,7 @@ public class BurgerMan {
       System.out.println("Dados do gerente:");
       try {
          Manager manager = (new ManagerBuilder()).build();
-         System.out.println("Gerente '" + manager.login + ": " +
-               manager.getName() + "' adicionado.");
+         System.out.println("Login: " + manager.login + "\nGerente adicionado.");
 
          while (true) {
             System.out.print("\nLogin ('-' para encerrar): ");
@@ -23,12 +22,9 @@ public class BurgerMan {
             if (login.isEmpty() || login.equals("-"))
                break;
 
-            Employee employee = EmployeeBuilder.get(login);
-
             try {
+               Employee employee = EmployeeBuilder.get(login);
                employee.signIn();
-            } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-               System.out.println("<!> Entrada inválida.");
             } catch (Exception ex) {
                System.out.println("<!> " + ex.getMessage());
             }
