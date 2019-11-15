@@ -14,7 +14,7 @@ public class BurgerMan {
       System.out.println("Dados do gerente:");
       try {
          Manager manager = (new ManagerBuilder()).build();
-         System.out.println("Login: " + manager.login + "\nGerente adicionado.");
+         System.out.println("\nGerente '" + manager.getName() + "' adicionado.");
 
          while (true) {
             System.out.print("\nLogin ('-' para encerrar): ");

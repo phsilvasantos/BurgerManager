@@ -11,6 +11,6 @@ public class Manager extends Employee {
    }
 
    public void signIn() {
-      super.signIn(actions);
+      signIn(actions);
    }
 }

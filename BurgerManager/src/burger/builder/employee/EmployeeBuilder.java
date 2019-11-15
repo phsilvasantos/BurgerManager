@@ -21,6 +21,8 @@ public abstract class EmployeeBuilder implements Builder<Employee> {
    }
 
    protected void setInfo(Employee employee) throws Exception {
+      System.out.println("\nLogin: " + employee.login);
+
       System.out.print("Nome: ");
       employee.setName(BurgerMan.input.nextLine());
 

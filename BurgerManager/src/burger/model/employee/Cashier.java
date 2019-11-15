@@ -10,6 +10,6 @@ public class Cashier extends Employee {
    }
 
    public void signIn() {
-      super.signIn(action);
+      signIn(action);
    }
 }
