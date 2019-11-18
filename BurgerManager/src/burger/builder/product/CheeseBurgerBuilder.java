@@ -4,10 +4,7 @@ import burger.model.product.CheeseBurger;
 
 public class CheeseBurgerBuilder extends ProductBuilder {
    public CheeseBurger build() {
-      CheeseBurger cheeseBurger = new CheeseBurger();
-      addToMake(cheeseBurger);
-
-      return cheeseBurger;
+      return new CheeseBurger();
    }
 
    public String getType() {

@@ -8,7 +8,11 @@ import java.util.ArrayList;
 public abstract class ProductBuilder implements Builder<Product> {
    private static final ArrayList<Product> productsToMake = new ArrayList<>();
 
-   protected boolean addToMake(Product product) {
-      return productsToMake.add(product);
+   public static boolean addToMake(Product... products) {
+      boolean ok = true;
+      for (Product product : products)
+         ok = productsToMake.add(product);
+
+      return ok;
    }
 }

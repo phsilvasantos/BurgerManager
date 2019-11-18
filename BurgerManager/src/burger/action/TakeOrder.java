@@ -13,15 +13,31 @@ public class TakeOrder implements Action {
    }
 
    public void execute() throws Exception {
-      System.out.println();
+      System.out.println("\n0 - finalizar");
       int p;
-      for (p = 0; p < builders.length; p++)
-         System.out.println(p + " - " + builders[p].getType());
-      System.out.print("\nPedido: ");
-      p = Integer.parseInt(BurgerMan.input.nextLine());
+      for (p = 1; p <= builders.length; p++)
+         System.out.println(p + " - " + builders[p - 1].getType());
+      System.out.println();
 
-      Product product = builders[p].build();
-      System.out.println("Produto '" + product + "' encaminhado para preparo.");
+      int[] nProducts = new int[builders.length];
+      Product[] order = new Product[16];
+
+      for (int q = 1; q <= order.length; q++) {
+         System.out.print("Produto (" + q + " de " + order.length + "): ");
+         p = Integer.parseInt(BurgerMan.input.nextLine());
+         if (p == 0)
+            break;
+
+         order[q - 1] = builders[p - 1].build();
+         nProducts[p - 1]++;
+      }
+
+      System.out.println("\nPedido:");
+      for (p = 0; p < builders.length; p++)
+         System.out.printf("%2d %s\n", nProducts[p], builders[p].getType());
+
+      ProductBuilder.addToMake(order);
+      System.out.println("\nPedido encaminhado para preparo.");
    }
 
    @Override
