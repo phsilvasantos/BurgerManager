@@ -1,8 +1,12 @@
 package burger.action;
 
 import burger.BurgerMan;
+import burger.builder.product.BeefBurgerBuilder;
 import burger.builder.product.CheeseBurgerBuilder;
+import burger.builder.product.ChickenBurgerBuilder;
+import burger.builder.product.JuiceBuilder;
 import burger.builder.product.ProductBuilder;
+import burger.builder.product.SodaBuilder;
 import burger.model.Order;
 import burger.model.product.Product;
 
@@ -10,7 +14,10 @@ public class TakeOrder implements Action {
    private ProductBuilder[] builders;
 
    public TakeOrder() {
-      builders = new ProductBuilder[] {new CheeseBurgerBuilder()};
+      builders = new ProductBuilder[] {
+         new BeefBurgerBuilder(), new ChickenBurgerBuilder(),
+         new CheeseBurgerBuilder(), new SodaBuilder(), new JuiceBuilder()
+      };
    }
 
    public void execute() throws Exception {

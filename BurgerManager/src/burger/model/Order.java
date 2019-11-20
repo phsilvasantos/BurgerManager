@@ -8,14 +8,24 @@ import java.util.HashMap;
 public class Order {
    public final String address;
    private ArrayList<Product> products;
+   private HashMap<String, Integer> nProds;
 
    public Order(String address) {
       this.address = address;
       products = new ArrayList<>();
+      nProds = new HashMap<>();
    }
 
    public boolean addProduct(Product product) {
-      return products.add(product);
+      boolean ok = products.add(product);
+
+      String p = product.toString();
+      Integer np = nProds.get(p);
+      if (np == null)
+         np = new Integer(0);
+      nProds.put(p, np + 1);
+
+      return ok;
    }
 
    public Product[] getProducts() {
@@ -29,18 +39,9 @@ public class Order {
 
    @Override
    public String toString() {
-      String s = "Endereço: " + address;
-
-      HashMap<String, Integer> nProducts = new HashMap<>();
-      for (Product product : products) {
-         String p = product.toString();
-         int np = nProducts.get(p);
-         nProducts.put(p, np + 1);
-      }
-
-      s += "\nProdutos:";
-      for (String p : nProducts.keySet())
-         s += String.format("\n  %2d %s", nProducts.get(p), p);
+      String s = "Endereço: " + address + "\nProdutos:";
+      for (String p : nProds.keySet())
+         s += String.format("\n  %2d %s", nProds.get(p), p);
 
       return s;
    }
