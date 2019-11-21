@@ -8,22 +8,22 @@ import java.util.HashMap;
 public class Order {
    public final String address;
    private ArrayList<Product> products;
-   private HashMap<String, Integer> nProds;
+   private HashMap<String, Integer> nProducts;
 
    public Order(String address) {
       this.address = address;
       products = new ArrayList<>();
-      nProds = new HashMap<>();
+      nProducts = new HashMap<>();
    }
 
    public boolean addProduct(Product product) {
       boolean ok = products.add(product);
 
       String p = product.toString();
-      Integer np = nProds.get(p);
+      Integer np = nProducts.get(p);
       if (np == null)
          np = new Integer(0);
-      nProds.put(p, np + 1);
+      nProducts.put(p, np + 1);
 
       return ok;
    }
@@ -40,8 +40,8 @@ public class Order {
    @Override
    public String toString() {
       String s = "Endereço: " + address + "\nProdutos:";
-      for (String p : nProds.keySet())
-         s += String.format("\n  %2d %s", nProds.get(p), p);
+      for (String p : nProducts.keySet())
+         s += String.format("\n  %2d %s", nProducts.get(p), p);
 
       return s;
    }

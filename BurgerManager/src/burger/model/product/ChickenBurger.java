@@ -14,10 +14,6 @@ public class ChickenBurger implements Product {
 
    private static final Box pack = new Box();
 
-   public ChickenBurger build() {
-      return new ChickenBurger();
-   }
-
    public Supply[] getIngredients() {
       return ingredients;
    }

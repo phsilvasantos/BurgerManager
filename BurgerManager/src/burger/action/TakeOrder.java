@@ -2,18 +2,13 @@ package burger.action;
 
 import burger.BurgerMan;
 import burger.model.Order;
-import burger.model.product.BeefBurger;
-import burger.model.product.CheeseBurger;
-import burger.model.product.ChickenBurger;
-import burger.model.product.Juice;
-import burger.model.product.Product;
-import burger.model.product.Soda;
+import burger.model.product.*;
 
 public class TakeOrder implements Action {
-   private Product[] builders;
+   private Product[] products;
 
    public TakeOrder() {
-      builders = new Product[] {
+      products = new Product[] {
          new BeefBurger(), new ChickenBurger(), new CheeseBurger(), new Soda(), new Juice()
       };
    }
@@ -28,8 +23,8 @@ public class TakeOrder implements Action {
 
       System.out.println("\n0 - finalizar");
       int p;
-      for (p = 1; p <= builders.length; p++)
-         System.out.println(p + " - " + builders[p - 1]);
+      for (p = 1; p <= products.length; p++)
+         System.out.println(p + " - " + products[p - 1]);
       System.out.println();
 
       while (true) {
@@ -38,7 +33,7 @@ public class TakeOrder implements Action {
          if (p == 0)
             break;
 
-         Product product = builders[p - 1].build();
+         Product product = products[p - 1];
 
          System.out.print("Quantidade: ");
          int q = Integer.parseInt(BurgerMan.input.nextLine());
@@ -47,7 +42,7 @@ public class TakeOrder implements Action {
             order.addProduct(product);
       }
 
-      MakeOrder.addToMake(order);
+      MakeOrder.addOrder(order);
       System.out.println("\nPedido encaminhado para preparo.");
    }
 

@@ -14,10 +14,6 @@ public class BeefBurger implements Product {
 
    private static final Box pack = new Box();
 
-   public BeefBurger build() {
-      return new BeefBurger();
-   }
-
    public Supply[] getIngredients() {
       return ingredients;
    }

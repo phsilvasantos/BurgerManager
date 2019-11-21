@@ -2,9 +2,8 @@ package burger.model.employee;
 
 import burger.BurgerMan;
 import burger.action.Action;
-import burger.model.Builder;
 
-public abstract class Employee implements Builder<Employee> {
+public abstract class Employee {
    private String cpf, email, name;
    public final String login;
    private static final Exception formatException = new Exception("Formato incorreto.");
@@ -16,6 +15,8 @@ public abstract class Employee implements Builder<Employee> {
    public Employee(String login) {
       this.login = login;
    }
+
+   public abstract Employee build();
 
    public String getCPF() {
       return cpf;

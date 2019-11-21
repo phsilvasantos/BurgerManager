@@ -8,10 +8,6 @@ public class Juice extends Supply implements Product {
    private static final CupHolder pack = new CupHolder();
    private static double price;
 
-   public Juice build() {
-      return new Juice();
-   }
-   
    public Juice[] getIngredients() {
       return ingredient;
    }

@@ -24,6 +24,6 @@ public class Cashier extends Employee {
 
    @Override
    public String toString() {
-      return "caixa";
+      return "atendente";
    }
 }
