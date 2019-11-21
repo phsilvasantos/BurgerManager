@@ -12,4 +12,9 @@ public class Lettuce extends Supply {
          throw valueException;
       Lettuce.price = price;
    }
+
+   @Override
+   public String toString() {
+      return "alface";
+   }
 }

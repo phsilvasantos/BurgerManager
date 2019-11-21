@@ -1,19 +1,25 @@
 package burger;
 
-import burger.builder.employee.EmployeeBuilder;
-import burger.builder.employee.ManagerBuilder;
+import burger.action.AddEmployee;
 import burger.model.employee.Employee;
 import burger.model.employee.Manager;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class BurgerMan {
+   private static final HashMap<String, Employee> employees = new HashMap<>();
    public static final Scanner input = new Scanner(System.in);
+   private static final Exception notFoundException = new Exception("Funcionário não encontrado.");
 
    public static void main(String[] args) {
+      Manager manager = new Manager().build();
+
       System.out.println("Dados do gerente:");
       try {
-         Manager manager = (new ManagerBuilder()).build();
+         AddEmployee.setInfo(manager);
+         putEmployee(manager);
+
          System.out.println("\nGerente '" + manager.getName() + "' adicionado.");
 
          while (true) {
@@ -23,7 +29,7 @@ public class BurgerMan {
                break;
 
             try {
-               Employee employee = EmployeeBuilder.get(login);
+               Employee employee = getEmployee(login);
                employee.signIn();
             } catch (Exception ex) {
                System.out.println("<!> " + ex.getMessage());
@@ -32,5 +38,16 @@ public class BurgerMan {
       } catch (Exception ex) {
          System.out.println("<!> " + ex.getMessage());
       }
+   }
+
+   private static Employee getEmployee(String key) throws Exception {
+      Employee employee = employees.get(key);
+      if (employee == null)
+         throw notFoundException;
+      return employee;
+   }
+
+   public static Employee putEmployee(Employee employee) {
+      return employees.put(employee.login, employee);
    }
 }

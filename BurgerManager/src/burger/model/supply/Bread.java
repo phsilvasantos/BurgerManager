@@ -12,4 +12,9 @@ public class Bread extends Supply {
          throw valueException;
       Bread.price = price;
    }
+
+   @Override
+   public String toString() {
+      return "pão";
+   }
 }

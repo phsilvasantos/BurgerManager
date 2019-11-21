@@ -12,4 +12,9 @@ public class Box extends Supply {
          throw valueException;
       Box.price = price;
    }
+
+   @Override
+   public String toString() {
+      return "caixa";
+   }
 }

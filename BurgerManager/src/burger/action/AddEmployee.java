@@ -1,21 +1,19 @@
 package burger.action;
 
 import burger.BurgerMan;
-import burger.builder.employee.BoxerBuilder;
-import burger.builder.employee.CashierBuilder;
-import burger.builder.employee.CookBuilder;
-import burger.builder.employee.DelivererBuilder;
-import burger.builder.employee.EmployeeBuilder;
-import burger.builder.employee.SupplierBuilder;
+import burger.model.employee.Boxer;
+import burger.model.employee.Cashier;
+import burger.model.employee.Cook;
+import burger.model.employee.Deliverer;
 import burger.model.employee.Employee;
+import burger.model.employee.Supplier;
 
 public class AddEmployee implements Action {
-   private EmployeeBuilder[] builders;
+   private Employee[] builders;
 
    public AddEmployee() {
-      builders = new EmployeeBuilder[] {
-         new CashierBuilder(), new CookBuilder(), new BoxerBuilder(),
-         new DelivererBuilder(), new SupplierBuilder()
+      builders = new Employee[] {
+         new Cashier(), new Cook(), new Boxer(), new Deliverer(), new Supplier()
       };
    }
 
@@ -23,12 +21,28 @@ public class AddEmployee implements Action {
       System.out.println();
       int e;
       for (e = 0; e < builders.length; e++)
-         System.out.println(e + " - " + builders[e].getType());
+         System.out.println(e + " - " + builders[e]);
       System.out.print("\nFunção: ");
       e = Integer.parseInt(BurgerMan.input.nextLine());
 
       Employee employee = builders[e].build();
+      setInfo(employee);
+      BurgerMan.putEmployee(employee);
+
       System.out.println("\nFuncionário '" + employee.getName() + "' adicionado.");
+   }
+
+   public static void setInfo(Employee employee) throws Exception {
+      System.out.println("\nLogin: " + employee.login);
+
+      System.out.print("Nome: ");
+      employee.setName(BurgerMan.input.nextLine());
+
+      System.out.print("CPF: ");
+      employee.setCPF(BurgerMan.input.nextLine());
+
+      System.out.print("E-mail: ");
+      employee.setEmail(BurgerMan.input.nextLine());
    }
 
    @Override

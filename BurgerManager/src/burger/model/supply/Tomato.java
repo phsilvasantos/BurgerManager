@@ -12,4 +12,9 @@ public class Tomato extends Supply {
          throw valueException;
       Tomato.price = price;
    }
+
+   @Override
+   public String toString() {
+      return "tomate";
+   }
 }

@@ -14,6 +14,10 @@ public class ChickenBurger implements Product {
 
    private static final Box pack = new Box();
 
+   public ChickenBurger build() {
+      return new ChickenBurger();
+   }
+
    public Supply[] getIngredients() {
       return ingredients;
    }
@@ -24,6 +28,6 @@ public class ChickenBurger implements Product {
 
    @Override
    public String toString() {
-      return "Hamburger de frango";
+      return "hamburger de frango";
    }
 }

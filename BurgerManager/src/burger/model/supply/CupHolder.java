@@ -12,4 +12,9 @@ public class CupHolder extends Supply {
          throw valueException;
       CupHolder.price = price;
    }
+
+   @Override
+   public String toString() {
+      return "porta-copo";
+   }
 }
