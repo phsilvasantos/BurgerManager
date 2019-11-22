@@ -14,7 +14,7 @@ public class TakeOrder implements Action {
    }
 
    public void execute() throws Exception {
-      System.out.println("Endereço de entrega: ");
+      System.out.println("\nEndereço de entrega: ");
       String address = BurgerMan.input.nextLine();
       if (address.isEmpty())
          address = "Viagem";
@@ -43,7 +43,7 @@ public class TakeOrder implements Action {
       }
 
       MakeOrder.addOrder(order);
-      System.out.println("\nPedido encaminhado para preparo.");
+      System.out.println("\nPedido " + order.id + " encaminhado para preparo.");
    }
 
    @Override

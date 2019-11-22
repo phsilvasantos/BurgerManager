@@ -1,9 +1,11 @@
 package burger.model.product;
 
+import burger.exception.ValueException;
+import burger.model.MapKey;
 import burger.model.supply.CupHolder;
 import burger.model.supply.Supply;
 
-public class Juice extends Supply implements Product {
+public class Juice extends MapKey implements Product, Supply {
    private static final Juice[] ingredient = new Juice[] {new Juice()};
    private static final CupHolder pack = new CupHolder();
    private static double price;
@@ -22,7 +24,7 @@ public class Juice extends Supply implements Product {
 
    public void setPrice(double price) throws Exception {
       if (price < 0)
-         throw valueException;
+         throw new ValueException();
       Juice.price = price;
    }
 

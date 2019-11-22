@@ -1,6 +1,7 @@
 package burger;
 
 import burger.action.AddEmployee;
+import burger.exception.NotFoundException;
 import burger.model.employee.Employee;
 import burger.model.employee.Manager;
 
@@ -10,7 +11,6 @@ import java.util.Scanner;
 public class BurgerMan {
    private static final HashMap<String, Employee> employees = new HashMap<>();
    public static final Scanner input = new Scanner(System.in);
-   private static final Exception notFoundException = new Exception("Funcionário não encontrado.");
 
    public static void main(String[] args) {
       Manager manager = new Manager().build();
@@ -43,7 +43,7 @@ public class BurgerMan {
    private static Employee getEmployee(String key) throws Exception {
       Employee employee = employees.get(key);
       if (employee == null)
-         throw notFoundException;
+         throw new NotFoundException();
       return employee;
    }
 

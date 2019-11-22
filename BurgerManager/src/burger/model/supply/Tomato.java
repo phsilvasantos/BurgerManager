@@ -1,6 +1,9 @@
 package burger.model.supply;
 
-public class Tomato extends Supply {
+import burger.exception.ValueException;
+import burger.model.MapKey;
+
+public class Tomato extends MapKey implements Supply {
    private static double price;
 
    public double getPrice() {
@@ -9,7 +12,7 @@ public class Tomato extends Supply {
 
    public void setPrice(double price) throws Exception {
       if (price < 0)
-         throw valueException;
+         throw new ValueException();
       Tomato.price = price;
    }
 

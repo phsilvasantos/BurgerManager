@@ -1,12 +1,12 @@
 package burger.model.employee;
 
 import burger.BurgerMan;
+import burger.exception.FormatException;
 import burger.action.Action;
 
 public abstract class Employee {
    private String cpf, email, name;
    public final String login;
-   private static final Exception formatException = new Exception("Formato incorreto.");
 
    public Employee() {
       this("-");
@@ -32,13 +32,13 @@ public abstract class Employee {
 
    public void setCPF(String cpf) throws Exception {
       if (!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}"))
-         throw formatException;
+         throw new FormatException();
       this.cpf = cpf;
    }
 
    public void setEmail(String email) throws Exception {
       if (!email.matches("[a-z0-9\\.]+@[a-z\\.]+"))
-         throw formatException;
+         throw new FormatException();
       this.email = email;
    }
 

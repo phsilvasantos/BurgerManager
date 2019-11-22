@@ -35,9 +35,9 @@ public class AcquireSupplies implements Action {
 
          for (s = 0; s < t; s++)
             if (supply instanceof Box || supply instanceof CupHolder)
-               BoxOrder.addSupply(supply);
+               BoxOrder.addPackage(supply);
             else
-               MakeOrder.addSupply(supply);
+               MakeOrder.addIngredient(supply);
       }
 
       System.out.println("\nSuprimentos adicionados.");
