@@ -5,13 +5,12 @@ import burger.model.product.Product;
 import java.util.HashMap;
 
 public class Order {
-   public final String address;
+   public String address;
    private static int nOrder;
    public final int id;
    private HashMap<Product, Integer> products;
 
-   public Order(String address) {
-      this.address = address;
+   public Order() {
       id = nOrder++;
       products = new HashMap<>();
    }

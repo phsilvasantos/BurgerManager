@@ -15,12 +15,12 @@ public class TakeOrder implements Action {
 
    @Override
    public void execute() throws Exception {
-      System.out.print("\nEndereço de entrega: ");
-      String address = BurgerMan.input.nextLine();
-      if (address.isEmpty())
-         address = "Viagem";
+      Order order = new Order();
 
-      Order order = new Order(address);
+      System.out.print("\nEndereço de entrega ('-' para viagem): ");
+      String address = BurgerMan.input.nextLine();
+      if (!address.isEmpty() && !address.equals("-"))
+         order.address = address;
 
       System.out.println("\n0 - finalizar");
       int p;
