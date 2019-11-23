@@ -61,6 +61,7 @@ public class MakeOrder implements Action {
          if (ok) {
             for (Supply ingredient : ingredients.keySet())
                storage.put(ingredient, ingredients.get(ingredient));
+            BoxOrder.addOrder(order);
             System.out.println("Pedido " + order.id + " encaminhado para embalagem.");
          } else {
             skippedOrders.add(order);
