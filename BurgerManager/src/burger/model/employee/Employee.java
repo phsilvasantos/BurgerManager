@@ -1,7 +1,6 @@
 package burger.model.employee;
 
 import burger.BurgerMan;
-import burger.exception.FormatException;
 import burger.action.Action;
 
 public abstract class Employee {

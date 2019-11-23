@@ -1,7 +1,6 @@
 package burger;
 
 import burger.action.AddEmployee;
-import burger.exception.NotFoundException;
 import burger.model.employee.Employee;
 import burger.model.employee.Manager;
 
@@ -43,7 +42,7 @@ public class BurgerMan {
    private static Employee getEmployee(String key) throws Exception {
       Employee employee = employees.get(key);
       if (employee == null)
-         throw new NotFoundException();
+         throw new Exception("Funcionário não encontrado.");
       return employee;
    }
 

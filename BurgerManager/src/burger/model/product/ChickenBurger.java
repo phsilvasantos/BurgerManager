@@ -15,10 +15,12 @@ public class ChickenBurger extends MapKey implements Product {
 
    private static final Box pack = new Box();
 
+   @Override
    public Supply[] getIngredients() {
       return ingredients;
    }
 
+   @Override
    public Box getPackage() {
       return pack;
    }

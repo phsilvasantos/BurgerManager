@@ -14,10 +14,12 @@ public class Boxer extends Employee {
       super(login);
    }
 
+   @Override
    public Boxer build() {
       return new Boxer(toString() + (nBoxer++));
    }
 
+   @Override
    public void signIn() {
       signIn(action);
    }

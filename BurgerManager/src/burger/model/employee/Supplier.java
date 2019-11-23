@@ -14,10 +14,12 @@ public class Supplier extends Employee {
       super(login);
    }
 
+   @Override
    public Supplier build() {
       return new Supplier(toString() + (nSupplier++));
    }
 
+   @Override
    public void signIn() {
       signIn(action);
    }

@@ -14,10 +14,12 @@ public class Cook extends Employee {
       super(login);
    }
 
+   @Override
    public Cook build() {
       return new Cook(toString() + (nCook++));
    }
 
+   @Override
    public void signIn() {
       signIn(action);
    }

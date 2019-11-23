@@ -14,10 +14,12 @@ public class Manager extends Employee {
       super(login);
    }
 
+   @Override
    public Manager build() {
       return new Manager(toString());
    }
 
+   @Override
    public void signIn() {
       signIn(actions);
    }

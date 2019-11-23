@@ -14,10 +14,12 @@ public class Cashier extends Employee {
       super(login);
    }
 
+   @Override
    public Cashier build() {
       return new Cashier(toString() + (nCashier++));
    }
 
+   @Override
    public void signIn() {
       signIn(action);
    }

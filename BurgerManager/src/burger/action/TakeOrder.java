@@ -13,8 +13,9 @@ public class TakeOrder implements Action {
       };
    }
 
+   @Override
    public void execute() throws Exception {
-      System.out.println("\nEndereço de entrega: ");
+      System.out.print("\nEndereço de entrega: ");
       String address = BurgerMan.input.nextLine();
       if (address.isEmpty())
          address = "Viagem";
