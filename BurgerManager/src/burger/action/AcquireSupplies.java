@@ -1,6 +1,7 @@
 package burger.action;
 
 import burger.BurgerMan;
+import burger.model.employee.Employee;
 import burger.model.product.Juice;
 import burger.model.product.Soda;
 import burger.model.supply.*;
@@ -16,7 +17,7 @@ public class AcquireSupplies implements Action {
    }
 
    @Override
-   public void execute() throws Exception {
+   public void execute(Employee executor) throws Exception {
       System.out.println("\n0 - finalizar");
       int s;
       for (s = 1; s <= supplies.length; s++)

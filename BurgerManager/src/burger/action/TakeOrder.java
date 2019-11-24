@@ -1,7 +1,9 @@
 package burger.action;
 
 import burger.BurgerMan;
+import burger.model.Client;
 import burger.model.Order;
+import burger.model.employee.Employee;
 import burger.model.product.*;
 
 public class TakeOrder implements Action {
@@ -14,13 +16,23 @@ public class TakeOrder implements Action {
    }
 
    @Override
-   public void execute() throws Exception {
-      Order order = new Order();
+   public void execute(Employee executor) throws Exception {
+      Client client = new Client();
 
-      System.out.print("\nEndereço de entrega ('-' para viagem): ");
-      String address = BurgerMan.input.nextLine();
-      if (!address.isEmpty() && !address.equals("-"))
-         order.address = address;
+      System.out.println("\nDados do cliente:");
+      System.out.print("\nNome: ");
+      client.setName(BurgerMan.input.nextLine());
+      
+      System.out.print("CPF: ");
+      client.setCPF(BurgerMan.input.nextLine());
+      
+      System.out.print("E-mail: ");
+      client.setEmail(BurgerMan.input.nextLine());
+      
+      System.out.print("Endereço de entrega ('-' para viagem): ");
+      client.setAddress(BurgerMan.input.nextLine());
+
+      Order order = new Order(client);
 
       System.out.println("\n0 - finalizar");
       int p;
@@ -43,6 +55,7 @@ public class TakeOrder implements Action {
             order.addProduct(product);
       }
 
+      order.addEmployee(executor);
       MakeOrder.addOrder(order);
       System.out.println("\nPedido " + order.id + " encaminhado para preparo.");
    }

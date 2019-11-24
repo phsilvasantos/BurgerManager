@@ -1,6 +1,6 @@
-package burger.model.employee;
+package burger.model;
 
-public class FormatException extends RuntimeException {
+public class FormatException extends Exception {
    private static final long serialVersionUID = 1L;
 
    public FormatException() {

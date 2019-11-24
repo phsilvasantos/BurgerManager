@@ -18,7 +18,7 @@ public class AddEmployee implements Action {
    }
 
    @Override
-   public void execute() throws Exception {
+   public void execute(Employee executor) throws Exception {
       System.out.println();
       int e;
       for (e = 0; e < builders.length; e++)

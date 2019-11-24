@@ -1,6 +1,7 @@
 package burger.action;
 
 import burger.model.Order;
+import burger.model.employee.Employee;
 import burger.model.product.Product;
 import burger.model.supply.Supply;
 
@@ -24,7 +25,7 @@ public class BoxOrder implements Action {
    }
 
    @Override
-   public void execute() throws Exception {
+   public void execute(Employee executor) throws Exception {
       if (orders.isEmpty())
          throw new Exception("Nenhum pedido para embalar.");
 
@@ -57,6 +58,7 @@ public class BoxOrder implements Action {
       if (ok) {
          for (Supply pack : packs.keySet())
             storage.put(pack, packs.get(pack));
+         order.addEmployee(executor);
          DeliverOrder.addOrder(order);
          System.out.println("\nPedido " + order.id + " encaminhado para entrega.");
       } else {

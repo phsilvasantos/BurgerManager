@@ -2,9 +2,9 @@ package burger.model.employee;
 
 import burger.BurgerMan;
 import burger.action.Action;
+import burger.model.Person;
 
-public abstract class Employee {
-   private String cpf, email, name;
+public abstract class Employee extends Person {
    public final String login;
 
    public Employee() {
@@ -16,36 +16,6 @@ public abstract class Employee {
    }
 
    public abstract Employee build();
-
-   public String getCPF() {
-      return cpf;
-   }
-
-   public String getEmail() {
-      return email;
-   }
-
-   public String getName() {
-      return name;
-   }
-
-   public void setCPF(String cpf) throws Exception {
-      if (!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}"))
-         throw new FormatException();
-      this.cpf = cpf;
-   }
-
-   public void setEmail(String email) throws Exception {
-      if (!email.matches("[a-z0-9\\.]+@[a-z\\.]+"))
-         throw new FormatException();
-      this.email = email;
-   }
-
-   public void setName(String name) {
-      if (name.isEmpty())
-         name = "-";
-      this.name = name;
-   }
 
    public abstract void signIn();
 
@@ -62,7 +32,7 @@ public abstract class Employee {
             if (a == 0)
                break;
 
-            actions[a - 1].execute();
+            actions[a - 1].execute(this);
          } catch (NumberFormatException | IndexOutOfBoundsException ex) {
             System.out.println("<!> Entrada inválida.");
          } catch (Exception ex) {
