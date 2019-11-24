@@ -1,18 +1,15 @@
 package burger.model.product;
 
-import burger.model.MapKey;
 import burger.model.supply.CupHolder;
-import burger.model.supply.Supply;
 import burger.model.supply.ValueException;
 
-public class Soda extends MapKey implements Product, Supply {
-   private static final Soda[] ingredient = new Soda[] {new Soda()};
+public class Soda extends Product {
    private static final CupHolder pack = new CupHolder();
    private static double price;
 
    @Override
    public Soda[] getIngredients() {
-      return ingredient;
+      return new Soda[] {this};
    }
 
    @Override

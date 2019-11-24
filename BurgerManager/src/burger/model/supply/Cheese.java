@@ -1,8 +1,6 @@
 package burger.model.supply;
 
-import burger.model.MapKey;
-
-public class Cheese extends MapKey implements Supply {
+public class Cheese extends Supply {
    private static double price;
 
    @Override

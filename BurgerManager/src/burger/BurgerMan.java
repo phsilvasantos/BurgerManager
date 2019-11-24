@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class BurgerMan {
-   private static final HashMap<String, Employee> employees = new HashMap<>();
+   private static HashMap<String, Employee> employees = new HashMap<>();
    public static final Scanner input = new Scanner(System.in);
 
    public static void main(String[] args) {

@@ -1,6 +1,5 @@
 package burger.model.product;
 
-import burger.model.MapKey;
 import burger.model.supply.Box;
 import burger.model.supply.Bread;
 import burger.model.supply.Chicken;
@@ -8,7 +7,7 @@ import burger.model.supply.Lettuce;
 import burger.model.supply.Supply;
 import burger.model.supply.Tomato;
 
-public class ChickenBurger extends MapKey implements Product {
+public class ChickenBurger extends Product {
    private static final Supply[] ingredients = new Supply[] {
       new Bread(), new Chicken(), new Lettuce(), new Tomato()
    };
