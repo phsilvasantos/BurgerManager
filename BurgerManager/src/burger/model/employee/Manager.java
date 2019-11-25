@@ -5,7 +5,7 @@ import burger.action.AddEmployee;
 import burger.action.PayEmployees;
 
 public class Manager extends Employee {
-   private static final Action[] actions = new Action[] {new AddEmployee(), new PayEmployees()};
+   private static Action[] actions = new Action[] {new AddEmployee(), new PayEmployees()};
 
    public Manager() {
       super();

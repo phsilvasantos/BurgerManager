@@ -1,5 +1,7 @@
 package burger.model.supply;
 
+import burger.model.ValueException;
+
 public class Box extends Supply {
    private static double price;
 

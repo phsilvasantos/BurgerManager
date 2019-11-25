@@ -8,7 +8,7 @@ import burger.model.supply.Supply;
 import burger.model.supply.Tomato;
 
 public class ChickenBurger extends Product {
-   private static final Supply[] ingredients = new Supply[] {
+   private static Supply[] ingredients = new Supply[] {
       new Bread(), new Chicken(), new Lettuce(), new Tomato()
    };
 

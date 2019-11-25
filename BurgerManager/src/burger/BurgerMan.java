@@ -4,6 +4,7 @@ import burger.action.AddEmployee;
 import burger.model.employee.Employee;
 import burger.model.employee.Manager;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -44,6 +45,16 @@ public class BurgerMan {
       if (employee == null)
          throw new Exception("Funcionário não encontrado.");
       return employee;
+   }
+
+   public static Employee[] getEmployees() {
+      Collection<Employee> values = BurgerMan.employees.values();
+      Employee[] employees = new Employee[values.size()];
+      int e = 0;
+      for (Employee employee : values)
+         employees[e++] = employee;
+
+      return employees;
    }
 
    public static Employee putEmployee(Employee employee) {

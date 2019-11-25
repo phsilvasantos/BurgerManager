@@ -1,10 +1,10 @@
 package burger.model.product;
 
+import burger.model.ValueException;
 import burger.model.supply.CupHolder;
-import burger.model.supply.ValueException;
 
 public class Soda extends Product {
-   private static final CupHolder pack = new CupHolder();
+   private static CupHolder pack = new CupHolder();
    private static double price;
 
    @Override

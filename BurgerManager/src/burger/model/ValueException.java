@@ -1,4 +1,4 @@
-package burger.model.supply;
+package burger.model;
 
 public class ValueException extends RuntimeException {
    private static final long serialVersionUID = 1L;

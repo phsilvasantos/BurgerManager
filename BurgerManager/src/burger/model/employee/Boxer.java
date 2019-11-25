@@ -3,7 +3,7 @@ package burger.model.employee;
 import burger.action.BoxOrder;
 
 public class Boxer extends Employee {
-   private static final BoxOrder action = new BoxOrder();
+   private static BoxOrder action = new BoxOrder();
    private static int nBoxer;
 
    public Boxer() {
