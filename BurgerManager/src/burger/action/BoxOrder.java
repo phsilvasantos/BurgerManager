@@ -2,7 +2,7 @@ package burger.action;
 
 import burger.model.Order;
 import burger.model.employee.Employee;
-import burger.model.product.Product;
+import burger.model.food.Food;
 import burger.model.supply.Supply;
 
 import java.util.ArrayList;
@@ -34,15 +34,15 @@ public class BoxOrder implements Action {
          System.out.println(pack + ": " + storage.get(pack));
 
       Order order = orders.remove(0);
-      HashMap<Product, Integer> products = order.getProducts();
+      HashMap<Food, Integer> foods = order.getFoods();
       HashMap<Supply, Integer> packs = new HashMap<>();
 
-      for (Product product : products.keySet()) {
-         int nProduct = products.get(product);
-         Supply pack = product.getPackage();
+      for (Food food : foods.keySet()) {
+         int nFood = foods.get(food);
+         Supply pack = food.getPackage();
          Integer value = packs.get(pack);
          int nPack = value == null ? 0 : value;
-         packs.put(pack, nPack + nProduct);
+         packs.put(pack, nPack + nFood);
       }
 
       boolean ok = true;

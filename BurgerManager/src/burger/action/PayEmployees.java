@@ -1,11 +1,10 @@
 package burger.action;
 
-import burger.BurgerMan;
 import burger.model.Order;
 import burger.model.ValueException;
 import burger.model.employee.Employee;
 import burger.model.employee.Supplier;
-import burger.model.product.Product;
+import burger.model.food.Food;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +12,14 @@ import java.util.HashMap;
 public class PayEmployees implements Action {
    private static ArrayList<Order> orders = new ArrayList<>();
    private static double fraction, profit;
+   private static ArrayList<Supplier> suppliers = new ArrayList<>();
 
    public static boolean addOrder(Order order) {
       return orders.add(order);
+   }
+
+   public static boolean addSupplier(Supplier supplier) {
+      return suppliers.add(supplier);
    }
 
    @Override
@@ -25,23 +29,20 @@ public class PayEmployees implements Action {
       for (Order order : orders) {
          double price = 0;
 
-         HashMap<Product, Integer> products = order.getProducts();
-         for (Product product : products.keySet())
-            price += products.get(product) * (product.getPrice() + profit);
+         HashMap<Food, Integer> foods = order.getFoods();
+         for (Food food : foods.keySet())
+            price += foods.get(food) * (food.getPrice() + profit);
 
          for (Employee employee : order.getEmployees())
             paidEmployees.put(employee, fraction * price);
       }
 
+      for (Supplier supplier : suppliers)
+         paidEmployees.put(supplier, supplier.getSalary());
+
       System.out.println();
-      for (Employee employee : BurgerMan.getEmployees()) {
-         double payment;
-         if (employee instanceof Supplier)
-            payment = ((Supplier) employee).getSalary();
-         else {
-            Double value = paidEmployees.get(employee);
-            payment = value == null ? 0 : value;
-         }
+      for (Employee employee : paidEmployees.keySet()) {
+         double payment = paidEmployees.get(employee);
          if (payment > 0)
             System.out.printf("Funcionário '%s' recebe $%.2f.", employee.getName(), payment);
       }
@@ -57,5 +58,10 @@ public class PayEmployees implements Action {
       if (profit < 0)
          throw new ValueException();
       PayEmployees.profit = profit;
+   }
+
+   @Override
+   public String toString() {
+      return "remunerar funcionários";
    }
 }

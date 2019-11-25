@@ -4,14 +4,14 @@ import burger.BurgerMan;
 import burger.model.Client;
 import burger.model.Order;
 import burger.model.employee.Employee;
-import burger.model.product.*;
+import burger.model.food.*;
 
 public class TakeOrder implements Action {
-   private Product[] products;
+   private Food[] foods;
 
    public TakeOrder() {
-      products = new Product[] {
-         new BeefBurger(), new ChickenBurger(), new CheeseBurger(), new Soda(), new Juice()
+      foods = new Food[] {
+         new BeefBurger(), new ChickenBurger(), new CheeseBurger(), new SodaP(), new JuiceP()
       };
    }
 
@@ -35,24 +35,24 @@ public class TakeOrder implements Action {
       Order order = new Order(client);
 
       System.out.println("\n0 - finalizar");
-      int p;
-      for (p = 1; p <= products.length; p++)
-         System.out.println(p + " - " + products[p - 1]);
+      int f;
+      for (f = 1; f <= foods.length; f++)
+         System.out.println(f + " - " + foods[f - 1]);
       System.out.println();
 
       while (true) {
-         System.out.print("Produto: ");
-         p = Integer.parseInt(BurgerMan.input.nextLine());
-         if (p == 0)
+         System.out.print("Item: ");
+         f = Integer.parseInt(BurgerMan.input.nextLine());
+         if (f == 0)
             break;
 
-         Product product = products[p - 1];
+         Food food = foods[f - 1];
 
          System.out.print("Quantidade: ");
-         int q = Integer.parseInt(BurgerMan.input.nextLine());
+         int nFood = Integer.parseInt(BurgerMan.input.nextLine());
 
-         for (p = 0; p < q; p++)
-            order.addProduct(product);
+         for (f = 0; f < nFood; f++)
+            order.addFood(food);
       }
 
       order.addEmployee(executor);

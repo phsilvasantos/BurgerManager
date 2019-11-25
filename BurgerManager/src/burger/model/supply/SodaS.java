@@ -1,21 +1,9 @@
-package burger.model.product;
+package burger.model.supply;
 
 import burger.model.ValueException;
-import burger.model.supply.CupHolder;
 
-public class Soda extends Product {
-   private static CupHolder pack = new CupHolder();
+public class SodaS extends Supply {
    private static double price;
-
-   @Override
-   public Soda[] getIngredients() {
-      return new Soda[] {this};
-   }
-
-   @Override
-   public CupHolder getPackage() {
-      return pack;
-   }
 
    @Override
    public double getPrice() {
@@ -26,7 +14,7 @@ public class Soda extends Product {
    public void setPrice(double price) throws Exception {
       if (price < 0)
          throw new ValueException();
-      Soda.price = price;
+      SodaS.price = price;
    }
 
    @Override

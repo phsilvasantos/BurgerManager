@@ -1,15 +1,15 @@
-package burger.model.product;
+package burger.model.food;
 
 import burger.model.supply.Box;
 import burger.model.supply.Bread;
-import burger.model.supply.Cheese;
+import burger.model.supply.Chicken;
 import burger.model.supply.Lettuce;
 import burger.model.supply.Supply;
 import burger.model.supply.Tomato;
 
-public class CheeseBurger extends Product {
+public class ChickenBurger extends Food {
    private static Supply[] ingredients = new Supply[] {
-      new Bread(), new Cheese(), new Lettuce(), new Tomato()
+      new Bread(), new Chicken(), new Lettuce(), new Tomato()
    };
 
    private static final Box pack = new Box();
@@ -26,6 +26,6 @@ public class CheeseBurger extends Product {
 
    @Override
    public String toString() {
-      return "cheeseburger";
+      return "hamburger de frango";
    }
 }

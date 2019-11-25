@@ -1,0 +1,24 @@
+package burger.model.supply;
+
+import burger.model.ValueException;
+
+public class JuiceS extends Supply {
+   private static double price;
+
+   @Override
+   public double getPrice() {
+      return price;
+   }
+
+   @Override
+   public void setPrice(double price) throws Exception {
+      if (price < 0)
+         throw new ValueException();
+      JuiceS.price = price;
+   }
+
+   @Override
+   public String toString() {
+      return "suco";
+   }
+}
