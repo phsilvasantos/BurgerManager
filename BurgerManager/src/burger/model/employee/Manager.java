@@ -3,9 +3,12 @@ package burger.model.employee;
 import burger.action.Action;
 import burger.action.AddEmployee;
 import burger.action.PayEmployees;
+import burger.action.UpdatePrices;
 
 public class Manager extends Employee {
-   private static Action[] actions = new Action[] {new AddEmployee(), new PayEmployees()};
+   private static Action[] actions = new Action[] {
+      new AddEmployee(), new PayEmployees(), new UpdatePrices()
+   };
 
    public Manager() {
       super();

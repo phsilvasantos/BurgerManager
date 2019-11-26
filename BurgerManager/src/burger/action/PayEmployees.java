@@ -33,12 +33,17 @@ public class PayEmployees implements Action {
          for (Food food : foods.keySet())
             price += foods.get(food) * (food.getPrice() + profit);
 
-         for (Employee employee : order.getEmployees())
-            paidEmployees.put(employee, fraction * price);
+         if (price > 0)
+            for (Employee employee : order.getEmployees())
+               paidEmployees.put(employee, fraction * price);
       }
 
       for (Supplier supplier : suppliers)
          paidEmployees.put(supplier, supplier.getSalary());
+
+      if (paidEmployees.isEmpty()) {
+         throw new Exception("Nenhum pagamento para efetuar.");
+      }
 
       System.out.println();
       for (Employee employee : paidEmployees.keySet()) {
@@ -46,6 +51,14 @@ public class PayEmployees implements Action {
          if (payment > 0)
             System.out.printf("Funcionário '%s' recebe $%.2f.", employee.getName(), payment);
       }
+   }
+
+   public static double getFraction() {
+      return fraction;
+   }
+
+   public static double getProfit() {
+      return profit;
    }
 
    public static void setFraction(double fraction) throws Exception {
