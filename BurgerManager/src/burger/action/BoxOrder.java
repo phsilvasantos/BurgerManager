@@ -12,11 +12,11 @@ public class BoxOrder implements Action {
    private static ArrayList<Order> orders = new ArrayList<>();
    private static HashMap<Supply, Integer> storage = new HashMap<>();
 
-   public static boolean addOrder(Order order) {
+   static boolean addOrder(Order order) {
       return orders.add(order);
    }
 
-   public static int addPackage(Supply pack) {
+   static int addPackage(Supply pack) {
       Integer value = storage.get(pack);
       int nPack = value == null ? 0 : value;
       storage.put(pack, nPack + 1);

@@ -1,9 +1,11 @@
 package burger.model.employee;
 
+import burger.action.Action;
 import burger.action.BoxOrder;
+import burger.action.EditProfile;
 
 public class Boxer extends Employee {
-   private static BoxOrder action = new BoxOrder();
+   private static Action[] actions = new Action[] {new BoxOrder(), new EditProfile()};
    private static int nBoxer;
 
    public Boxer() {
@@ -21,7 +23,7 @@ public class Boxer extends Employee {
 
    @Override
    public void signIn() {
-      signIn(action);
+      signIn(actions);
    }
 
    @Override

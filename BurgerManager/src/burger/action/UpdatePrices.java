@@ -14,6 +14,7 @@ public class UpdatePrices implements Action {
       };
    }
 
+   @Override
    public void execute(Employee executor) throws Exception {
       System.out.println("\nTaxa de lucro ($)\n  atual: " + PayEmployees.getProfit());
       System.out.print("  novo: ");

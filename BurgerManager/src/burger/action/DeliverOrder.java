@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class DeliverOrder implements Action {
    private static ArrayList<Order> orders = new ArrayList<>();
    
-   public static boolean addOrder(Order order) {
+   static boolean addOrder(Order order) {
       return orders.add(order);
    }
 
@@ -34,7 +34,7 @@ public class DeliverOrder implements Action {
       System.out.print("Confirmar entrega (s/n): ");
       if (BurgerMan.input.nextLine().toLowerCase().equals("n")) {
          addOrder(order);
-         System.out.println("Entrega do pedido " + order.id + " cancelada.");
+         System.out.println("<!> Entrega do pedido " + order.id + " cancelada.");
       } else {
          order.addEmployee(executor);
          PayEmployees.addOrder(order);

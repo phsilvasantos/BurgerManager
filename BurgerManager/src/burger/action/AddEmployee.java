@@ -30,7 +30,7 @@ public class AddEmployee implements Action {
       setInfo(employee);
       BurgerMan.putEmployee(employee);
 
-      System.out.println("\nFuncionário '" + employee.getName() + "' adicionado.");
+      System.out.println("\nFuncionário " + employee.getName() + " adicionado.");
    }
 
    public static void setInfo(Employee employee) throws Exception {

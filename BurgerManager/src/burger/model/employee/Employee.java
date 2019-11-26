@@ -4,8 +4,11 @@ import burger.BurgerMan;
 import burger.action.Action;
 import burger.model.Person;
 
+import java.util.HashMap;
+
 public abstract class Employee extends Person {
    public final String login;
+   private HashMap<String, String> profile;
 
    public Employee() {
       this("-");
@@ -13,9 +16,18 @@ public abstract class Employee extends Person {
 
    public Employee(String login) {
       this.login = login;
+      this.profile = new HashMap<>();
    }
 
    public abstract Employee build();
+
+   public HashMap<String, String> getProfile() {
+      return new HashMap<>(profile);
+   }
+
+   public String putAttribute(String key, String value) {
+      return profile.put(key, value);
+   }
 
    public abstract void signIn();
 

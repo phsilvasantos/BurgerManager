@@ -1,10 +1,12 @@
 package burger.model.employee;
 
 import burger.action.AcquireSupplies;
-import burger.model.ValueException;
+import burger.action.Action;
+import burger.action.EditProfile;
+import burger.exception.ValueException;
 
 public class Supplier extends Employee {
-   private static AcquireSupplies action = new AcquireSupplies();
+   private static Action[] actions = new Action[] {new AcquireSupplies(), new EditProfile()};
    private static int nSupplier;
    private static double salary;
 
@@ -33,7 +35,7 @@ public class Supplier extends Employee {
 
    @Override
    public void signIn() {
-      signIn(action);
+      signIn(actions);
    }
 
    @Override

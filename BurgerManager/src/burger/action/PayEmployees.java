@@ -1,7 +1,7 @@
 package burger.action;
 
+import burger.exception.ValueException;
 import burger.model.Order;
-import burger.model.ValueException;
 import burger.model.employee.Employee;
 import burger.model.employee.Supplier;
 import burger.model.food.Food;
@@ -14,11 +14,11 @@ public class PayEmployees implements Action {
    private static double fraction, profit;
    private static ArrayList<Supplier> suppliers = new ArrayList<>();
 
-   public static boolean addOrder(Order order) {
+   static boolean addOrder(Order order) {
       return orders.add(order);
    }
 
-   public static boolean addSupplier(Supplier supplier) {
+   static boolean addSupplier(Supplier supplier) {
       return suppliers.add(supplier);
    }
 
@@ -49,25 +49,25 @@ public class PayEmployees implements Action {
       for (Employee employee : paidEmployees.keySet()) {
          double payment = paidEmployees.get(employee);
          if (payment > 0)
-            System.out.printf("Funcionário '%s' recebe $%.2f.", employee.getName(), payment);
+            System.out.printf("Funcionário %s recebe $%.2f.", employee.getName(), payment);
       }
    }
 
-   public static double getFraction() {
+   static double getFraction() {
       return fraction;
    }
 
-   public static double getProfit() {
+   static double getProfit() {
       return profit;
    }
 
-   public static void setFraction(double fraction) throws Exception {
+   static void setFraction(double fraction) throws Exception {
       if (fraction < 0 || fraction > 1)
          throw new ValueException();
       PayEmployees.fraction = fraction;
    }
 
-   public static void setProfit(double profit) throws Exception {
+   static void setProfit(double profit) throws Exception {
       if (profit < 0)
          throw new ValueException();
       PayEmployees.profit = profit;

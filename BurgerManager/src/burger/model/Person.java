@@ -1,5 +1,7 @@
 package burger.model;
 
+import burger.exception.FormatException;
+
 public abstract class Person {
    private String cpf, email, name;
 

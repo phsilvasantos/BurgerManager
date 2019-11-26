@@ -12,11 +12,11 @@ public class MakeOrder implements Action {
    private static ArrayList<Order> orders = new ArrayList<>();
    private static HashMap<Supply, Integer> storage = new HashMap<>();
 
-   public static boolean addOrder(Order order) {
+   static boolean addOrder(Order order) {
       return orders.add(order);
    }
 
-   public static int addIngredient(Supply ingredient) {
+   static int addIngredient(Supply ingredient) {
       Integer value = storage.get(ingredient);
       int nIngredient = value == null ? 0 : value;
       storage.put(ingredient, nIngredient + 1);

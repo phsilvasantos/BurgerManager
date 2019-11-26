@@ -1,6 +1,6 @@
 package burger.model.supply;
 
-import burger.model.ValueException;
+import burger.exception.ValueException;
 
 public class Lettuce extends Supply {
    private static double price;

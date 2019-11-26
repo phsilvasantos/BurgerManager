@@ -1,9 +1,11 @@
 package burger.model.employee;
 
+import burger.action.Action;
 import burger.action.DeliverOrder;
+import burger.action.EditProfile;
 
 public class Deliverer extends Employee {
-   private static DeliverOrder action = new DeliverOrder();
+   private static Action[] actions = new Action[] {new DeliverOrder(), new EditProfile()};
    private static int nDeliverer;
 
    public Deliverer() {
@@ -21,7 +23,7 @@ public class Deliverer extends Employee {
 
    @Override
    public void signIn() {
-      signIn(action);
+      signIn(actions);
    }
 
    @Override

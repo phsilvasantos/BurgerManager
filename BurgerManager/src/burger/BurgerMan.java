@@ -1,6 +1,7 @@
 package burger;
 
 import burger.action.AddEmployee;
+import burger.exception.NotFoundException;
 import burger.model.employee.Employee;
 import burger.model.employee.Manager;
 
@@ -20,7 +21,7 @@ public class BurgerMan {
          AddEmployee.setInfo(manager);
          putEmployee(manager);
 
-         System.out.println("\nGerente '" + manager.getName() + "' adicionado.");
+         System.out.println("\nGerente " + manager.getName() + " adicionado.");
 
          while (true) {
             System.out.print("\nLogin ('-' para encerrar): ");
@@ -40,10 +41,10 @@ public class BurgerMan {
       }
    }
 
-   private static Employee getEmployee(String key) throws Exception {
-      Employee employee = employees.get(key);
+   public static Employee getEmployee(String login) throws Exception {
+      Employee employee = employees.get(login);
       if (employee == null)
-         throw new Exception("Funcionário não encontrado.");
+         throw new NotFoundException();
       return employee;
    }
 
@@ -59,5 +60,12 @@ public class BurgerMan {
 
    public static Employee putEmployee(Employee employee) {
       return employees.put(employee.login, employee);
+   }
+
+   public static Employee removeEmployee(String login) throws Exception {
+      Employee employee = employees.remove(login);
+      if (employee == null)
+         throw new NotFoundException();
+      return employee;
    }
 }
