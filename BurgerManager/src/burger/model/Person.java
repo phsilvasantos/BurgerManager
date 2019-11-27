@@ -34,4 +34,13 @@ public abstract class Person {
          name = "-";
       this.name = name;
    }
+
+   @Override
+   public String toString() {
+      String p = "nome: " + name;
+      p += "\ncpf: " + cpf;
+      p += "\ne-mail: " + email;
+
+      return p;
+   }
 }

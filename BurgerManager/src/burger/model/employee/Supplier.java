@@ -20,11 +20,16 @@ public class Supplier extends Employee {
 
    @Override
    public Supplier build() {
-      return new Supplier(toString() + (nSupplier++));
+      return new Supplier(getType() + (nSupplier++));
    }
 
    public double getSalary() {
       return salary;
+   }
+
+   @Override
+   public String getType() {
+      return "fornecedor";
    }
 
    public void setSalary(double salary) throws Exception {
@@ -36,10 +41,5 @@ public class Supplier extends Employee {
    @Override
    public void signIn() {
       signIn(actions);
-   }
-
-   @Override
-   public String toString() {
-      return "fornecedor";
    }
 }

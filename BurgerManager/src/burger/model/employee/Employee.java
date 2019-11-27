@@ -25,6 +25,8 @@ public abstract class Employee extends Person {
       return new HashMap<>(profile);
    }
 
+   public abstract String getType();
+
    public String putAttribute(String key, String value) {
       return profile.put(key, value);
    }
@@ -51,5 +53,20 @@ public abstract class Employee extends Person {
             System.out.println("<!> " + ex.getMessage());
          }
       }
+   }
+
+   @Override
+   public String toString() {
+      String e = "login: " + login;
+      e += "\n" + super.toString();
+
+      for (String key : profile.keySet()) {
+         String value = profile.get(key);
+         e += "\n" + key + ": " + value;
+      }
+
+      e += "\nfunção: " + getType();
+
+      return e;
    }
 }

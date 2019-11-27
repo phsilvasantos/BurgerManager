@@ -18,16 +18,16 @@ public class Cook extends Employee {
 
    @Override
    public Cook build() {
-      return new Cook(toString() + (nCook++));
+      return new Cook(getType() + (nCook++));
+   }
+
+   @Override
+   public String getType() {
+      return "cozinheiro";
    }
 
    @Override
    public void signIn() {
       signIn(actions);
-   }
-
-   @Override
-   public String toString() {
-      return "cozinheiro";
    }
 }

@@ -18,16 +18,16 @@ public class Deliverer extends Employee {
 
    @Override
    public Deliverer build() {
-      return new Deliverer(toString() + (nDeliverer++));
+      return new Deliverer(getType() + (nDeliverer++));
+   }
+
+   @Override
+   public String getType() {
+      return "entregador";
    }
 
    @Override
    public void signIn() {
       signIn(actions);
-   }
-
-   @Override
-   public String toString() {
-      return "entregador";
    }
 }

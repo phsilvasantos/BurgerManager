@@ -44,4 +44,19 @@ public class Order {
    public HashMap<Food, Integer> getFoods() {
       return new HashMap<>(foods);
    }
+
+   @Override
+   public String toString() {
+      String o = "id: " + id;
+
+      o += "\nItens:";
+      for (Food food : foods.keySet()) {
+         int nFood = foods.get(food);
+         o += "\n  " + food + ": " + nFood;
+      }
+
+      o += "\nCliente:\n" + client;
+
+      return o;
+   }
 }

@@ -18,16 +18,16 @@ public class Cashier extends Employee {
 
    @Override
    public Cashier build() {
-      return new Cashier(toString() + (nCashier++));
+      return new Cashier(getType() + (nCashier++));
+   }
+
+   @Override
+   public String getType() {
+      return "atendente";
    }
 
    @Override
    public void signIn() {
       signIn(actions);
-   }
-
-   @Override
-   public String toString() {
-      return "atendente";
    }
 }

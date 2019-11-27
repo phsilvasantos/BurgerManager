@@ -33,9 +33,8 @@ public class PayEmployees implements Action {
          for (Food food : foods.keySet())
             price += foods.get(food) * (food.getPrice() + profit);
 
-         if (price > 0)
-            for (Employee employee : order.getEmployees())
-               paidEmployees.put(employee, fraction * price);
+         for (Employee employee : order.getEmployees())
+            paidEmployees.put(employee, fraction * price);
       }
 
       for (Supplier supplier : suppliers)
@@ -51,6 +50,9 @@ public class PayEmployees implements Action {
          if (payment > 0)
             System.out.printf("Funcionário %s recebe $%.2f.", employee.getName(), payment);
       }
+
+      orders.clear();
+      suppliers.clear();
    }
 
    static double getFraction() {

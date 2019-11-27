@@ -22,7 +22,7 @@ public class AddEmployee implements Action {
       System.out.println();
       int e;
       for (e = 0; e < builders.length; e++)
-         System.out.println(e + " - " + builders[e]);
+         System.out.println(e + " - " + builders[e].getType());
       System.out.print("\nFunção: ");
       e = Integer.parseInt(BurgerMan.input.nextLine());
 

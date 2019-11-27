@@ -68,6 +68,10 @@ public class MakeOrder implements Action {
       }
    }
 
+   static HashMap<Supply, Integer> getStorage() {
+      return new HashMap<>(storage);
+   }
+
    @Override
    public String toString() {
       return "preparar pedido";

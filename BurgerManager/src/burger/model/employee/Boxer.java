@@ -18,16 +18,16 @@ public class Boxer extends Employee {
 
    @Override
    public Boxer build() {
-      return new Boxer(toString() + (nBoxer++));
+      return new Boxer(getType() + (nBoxer++));
+   }
+
+   @Override
+   public String getType() {
+      return "embalador";
    }
 
    @Override
    public void signIn() {
       signIn(actions);
-   }
-
-   @Override
-   public String toString() {
-      return "embalador";
    }
 }
