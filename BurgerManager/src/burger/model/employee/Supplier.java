@@ -20,7 +20,7 @@ public class Supplier extends Employee {
 
    @Override
    public Supplier build() {
-      return new Supplier(getType() + (nSupplier++));
+      return new Supplier(getType() + "_" + (nSupplier++));
    }
 
    public double getSalary() {

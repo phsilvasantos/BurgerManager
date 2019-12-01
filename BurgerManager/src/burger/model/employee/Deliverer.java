@@ -18,7 +18,7 @@ public class Deliverer extends Employee {
 
    @Override
    public Deliverer build() {
-      return new Deliverer(getType() + (nDeliverer++));
+      return new Deliverer(getType() + "_" + (nDeliverer++));
    }
 
    @Override

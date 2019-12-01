@@ -18,7 +18,7 @@ public class Cashier extends Employee {
 
    @Override
    public Cashier build() {
-      return new Cashier(getType() + (nCashier++));
+      return new Cashier(getType() + "_" + (nCashier++));
    }
 
    @Override

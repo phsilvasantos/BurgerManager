@@ -18,7 +18,7 @@ public class Cook extends Employee {
 
    @Override
    public Cook build() {
-      return new Cook(getType() + (nCook++));
+      return new Cook(getType() + "_" + (nCook++));
    }
 
    @Override

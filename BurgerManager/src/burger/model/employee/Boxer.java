@@ -18,7 +18,7 @@ public class Boxer extends Employee {
 
    @Override
    public Boxer build() {
-      return new Boxer(getType() + (nBoxer++));
+      return new Boxer(getType() + "_" + (nBoxer++));
    }
 
    @Override

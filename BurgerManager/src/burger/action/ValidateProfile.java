@@ -23,7 +23,7 @@ public class ValidateProfile implements Action {
          for (String key : profile.keySet()) {
             String value = profile.get(key);
             System.out.println(key + ": " + value);
-            System.out.print("ok? (s/n):");
+            System.out.print("ok? (s/n): ");
 
             if (!BurgerMan.input.nextLine().toLowerCase().equals("n"))
                switch (key) {

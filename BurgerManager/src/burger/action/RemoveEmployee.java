@@ -7,7 +7,11 @@ public class RemoveEmployee implements Action {
    @Override
    public void execute(Employee executor) throws Exception {
       System.out.print("\nLogin do funcionário: ");
-      Employee employee = BurgerMan.removeEmployee(BurgerMan.input.nextLine());
+      String login = BurgerMan.input.nextLine();
+      if (login.equals(executor.login))
+         throw new Exception("Login inválido.");
+
+      Employee employee = BurgerMan.removeEmployee(login);
       System.out.println("Funcionário " + employee.getName() + " removido.");
    }
 
