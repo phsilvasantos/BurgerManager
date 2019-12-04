@@ -38,7 +38,7 @@ public class DeliverOrder implements Action {
       } else {
          order.addEmployee(executor);
          PayEmployees.addOrder(order);
-         //GenerateReport.addOrder(order);
+         GenerateReport.addOrder(order);
          System.out.println("Pedido " + order.id + " entregue.");
       }
    }
