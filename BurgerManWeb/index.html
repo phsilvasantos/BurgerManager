@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="style.css" />
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <script src="script.js"></script>
+      <title>BurgerMan</title>
+   </head>
+   <body onload="BurgerMan.main()">
+      <div class="scene" id="primary">
+         <label for="cpf">CPF:</label><br />
+         <input id="cpf" /><br />
+         <button id="sign_in_button" onclick="PrimaryHandler.signIn()" type="button">Entrar</button>
+         <hr />
+         <button type="button">Novo cliente</button>
+         <button type="button">Novo funcionário</button>
+      </div>
+      <div class="scene" id="person">
+         <button id="sign_out_button" onclick="PersonHandler.signOut()" type="button">Sair</button>
+      </div>
+   </body>
+</html>
