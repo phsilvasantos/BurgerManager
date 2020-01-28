@@ -2,5 +2,6 @@
     "editor.minimap.maxColumn": 100,
     "editor.minimap.renderCharacters": false,
     "editor.tabSize": 3,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "editor.autoIndent": "none"
 }

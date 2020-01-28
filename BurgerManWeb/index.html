@@ -4,20 +4,51 @@
       <link rel="stylesheet" type="text/css" href="style.css" />
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <script src="script.js"></script>
       <title>BurgerMan</title>
    </head>
-   <body onload="BurgerMan.main()">
-      <div class="scene" id="primary">
-         <label for="cpf">CPF:</label><br />
-         <input id="cpf" /><br />
-         <button id="sign_in_button" onclick="PrimaryHandler.signIn()" type="button">Entrar</button>
+   <body>
+      <div id="stage">Em manutenção.</div>
+      <script src="script.js"></script>
+      <!--div class="scene" id="profile_scene" style="display: none">
+         <label for="name_input">Nome</label>
+         <br />
+         <input id="name_input" />
+         <br />
+         <label for="email_input">E-mail</label>
+         <br />
+         <input id="email_input" type="email" />
+         <br />
+         <div id="address_field" style="display: none">
+            <label for="address_input">Endereço</label>
+            <br />
+            <input id="address_input" />
+         </div>
+         <div id="type_field" style="display: none">
+            <label for="type_select">Função</label>
+            <select id="type_select">
+               <option value="cook">cozinheiro</option>
+               <option value="boxer">embalador</option>
+               <option value="deliverer">entregador</option>
+               <option value="supplier">fornecedor</option>
+            </select>
+         </div>
+         <div id="profile_field" style="display: none">
+            <span id="profile"></span>
+            <input id="key" />
+            :
+            <input id="value" />
+            <button type="button">+</button>
+         </div>
+         <button type="button">OK</button>
+         <button type="button">Cancelar</button>
+      </div>
+      <div class="scene" id="sign_in_scene" style="display: none">
+         <label for="action_select">Ação:</label>
+         <br />
+         <select id="action_select"></select>
+         <button id="execute_button" type="button">Executar</button>
          <hr />
-         <button type="button">Novo cliente</button>
-         <button type="button">Novo funcionário</button>
-      </div>
-      <div class="scene" id="person">
-         <button id="sign_out_button" onclick="PersonHandler.signOut()" type="button">Sair</button>
-      </div>
+         <button type="button">Sair</button>
+      </div-->
    </body>
 </html>
