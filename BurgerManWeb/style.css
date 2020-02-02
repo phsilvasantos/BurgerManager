@@ -8,6 +8,6 @@
    padding: 8px
 }
 
-input[type="text"], button {
+button, input, select {
    margin: 2px
 }
