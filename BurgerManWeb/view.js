@@ -130,6 +130,11 @@ class PersonView extends View {
       person.name = this.nameInput.value
    }
 
+   open() {
+      this.clearInfo()
+      super.open()
+   }
+
    /** @param {Person} person */
    setInfo(person) {
       this.cpfInput.value = person.cpf
@@ -196,19 +201,6 @@ class NewClientView extends PersonView {
       this.getInfo(client)
       return client
    }
-
-   open() {
-      this.clearInfo()
-      super.open()
-   }
-
-   /** @param {Client} client */
-   setInfo(client) {
-      super.setInfo(client)
-      this.districtInput.value = client.address.district
-      this.numberInput.value = client.address.number
-      this.streetInput.value = client.address.street
-   }
 }
 
 class NewEmployeeView extends PersonView {
@@ -224,11 +216,6 @@ class NewEmployeeView extends PersonView {
 
       this.typeSelect = this.createSelect("type_select")
       this.scene.insertBefore(this.typeSelect, nextSibling)
-
-      /*this.typeSelect.appendChild(this.createOption("cook", "Cozinheiro"))
-      this.typeSelect.appendChild(this.createOption("boxer", "Embalador"))
-      this.typeSelect.appendChild(this.createOption("deliverer", "Entregador"))
-      this.typeSelect.appendChild(this.createOption("supplier", "Fornecedor"))*/
    }
 
    /** @param {{[key: string]: Factory}} factories */
@@ -238,6 +225,12 @@ class NewEmployeeView extends PersonView {
 
       for (let key in factories)
          this.typeSelect.appendChild(this.createOption(key, factories[key].tag))
+   }
+
+   createPerson() {
+      let employee = this.factories[this.typeSelect.value].create(this.cpfInput.value)
+      this.getInfo(employee)
+      return employee
    }
 }
 
@@ -265,9 +258,14 @@ class PrimaryView extends View {
       this.scene.appendChild(this.newEmployeeButton)
    }
 
-   /** @param {(ev: MouseEvent) => void} */
+   /** @param {(ev: MouseEvent) => void} handler */
    bindNewClient(handler) {
       this.newClientButton.addEventListener("click", handler)
+   }
+
+   /** @param {(ev: MouseEvent) => void} handler */
+   bindNewEmployee(handler) {
+      this.newEmployeeButton.addEventListener("click", handler)
    }
 
    /** @param {(cpf: string) => void} handler */

@@ -23,8 +23,33 @@ class NewClientController extends Controller {
          this.parentController.openView()
       })
 
-      this.view.bindOk((person) => {
-         this.model.clients[person.cpf] = person
+      this.view.bindOk((client) => {
+         this.model.clients[client.cpf] = client
+         this.parentController.openView()
+      })
+   }
+}
+
+class NewEmployeeController extends Controller {
+   /** @param {Controller} parentController @param {HTMLDivElement} stage */
+   constructor(parentController, stage) {
+      super()
+      this.parentController = parentController
+      this.view = new NewEmployeeView(stage)
+
+      this.view.bindCancel((_ev) => {
+         this.parentController.openView()
+      })
+
+      this.view.bindFactories({
+         boxer: new Factory(Boxer.type, (cpf) => {return new Boxer(cpf)}),
+         cook: new Factory(Cook.type, (cpf) => {return new Cook(cpf)}),
+         deliverer: new Factory(Deliverer.type, (cpf) => {return new Deliverer(cpf)}),
+         supplier: new Factory(Supplier.type, (cpf) => {return new Supplier(cpf)})
+      })
+
+      this.view.bindOk((employee) => {
+         this.model.employees[employee.cpf] = employee
          this.parentController.openView()
       })
    }
@@ -39,9 +64,8 @@ class SignInController extends Controller {
       this.person
       this.view = new SignInView(stage)
 
-      Manager.bindAction("makeTest", new Action("Fazer um teste", () => {
-         console.log("Testando...")
-      }))
+      let action = new Action("Fazer um teste", () => {console.log("Testando...")})
+      Manager.bindAction("makeTest", action)
 
       this.view.bindClose((_ev) => {
          this.parentController.openView()
@@ -62,11 +86,15 @@ class PrimaryController extends Controller {
       let stage = document.querySelector("#stage")
       this.signInController = new SignInController(this, stage)
       this.newClientController = new NewClientController(this, stage)
-      //this.newEmployeeController = ...
+      this.newEmployeeController = new NewEmployeeController(this, stage)
       this.view = new PrimaryView(stage)
 
       this.view.bindNewClient((_ev) => {
          this.newClientController.openView()
+      })
+
+      this.view.bindNewEmployee((_ev) => {
+         this.newEmployeeController.openView()
       })
 
       this.view.bindSignIn((cpf) => {

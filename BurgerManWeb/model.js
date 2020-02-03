@@ -20,7 +20,7 @@ class Action {
 }
 
 class Factory {
-   /** @param {() => Person} handler @param {string} tag */
+   /** @param {(cpf: string) => Person} handler @param {string} tag */
    constructor(tag, handler) {
       this.create = handler
       this.tag = tag
@@ -54,7 +54,7 @@ class Client extends Person {
       super(cpf)
       this.address = address
       this.actions = Client.actions
-      this.type = "Cliente"
+      this.type = Client.type
    }
 
    /** @param {Action} action @param {string} key */
@@ -69,6 +69,7 @@ class Client extends Person {
 
 /** @type {{[key: string]: Action}} */
 Client.actions = {}
+Client.type = "Cliente"
 
 /** @abstract */
 class Employee extends Person {
@@ -76,8 +77,6 @@ class Employee extends Person {
    constructor(cpf) {
       super(cpf)
       this.profile = {}
-      /** @type {string} */
-      this.type
    }
 
    /** @param {string} key @param {string} value */
@@ -111,7 +110,7 @@ class Boxer extends Employee {
    constructor(cpf) {
       super(cpf)
       this.actions = Boxer.actions
-      this.type = "Embalador"
+      this.type = Boxer.type
    }
 
    /** @param {Action} action @param {string} key */
@@ -122,13 +121,14 @@ class Boxer extends Employee {
 
 /** @type {{[key: string]: Action}} */
 Boxer.actions = {}
+Boxer.type = "Embalador"
 
 class Cook extends Employee {
    /** @param {string} cpf */
    constructor(cpf) {
       super(cpf)
       this.actions = Cook.actions
-      this.type = "Cozinheiro"
+      this.type = Cook.type
    }
 
    /** @param {Action} action @param {string} key */
@@ -139,13 +139,14 @@ class Cook extends Employee {
 
 /** @type {{[key: string]: Action}} */
 Cook.actions = {}
+Cook.type = "Cozinheiro"
 
 class Deliverer extends Employee {
    /** @param {string} cpf */
    constructor(cpf) {
       super(cpf)
       this.actions = Deliverer.actions
-      this.type = "Entregador"
+      this.type = Deliverer.type
    }
 
    /** @param {Action} action @param {string} key */
@@ -156,12 +157,13 @@ class Deliverer extends Employee {
 
 /** @type {{[key: string]: Action}} */
 Deliverer.actions = {}
+Deliverer.type = "Entregador"
 
 class Manager extends Employee {
    constructor() {
       super("000.000.000-00")
       this.actions = Manager.actions
-      this.type = "Gerente"
+      this.type = Manager.type
    }
 
    /** @param {Action} action @param {string} key */
@@ -172,13 +174,14 @@ class Manager extends Employee {
 
 /** @type {{[key: string]: Action}} */
 Manager.actions = {}
+Manager.type = "Gerente"
 
 class Supplier extends Employee {
    /** @param {string} cpf */
    constructor(cpf) {
       super(cpf)
       this.actions = Supplier.actions
-      this.type = "Fornecedor"
+      this.type = Supplier.type
    }
 
    /** @param {Action} action @param {string} key */
@@ -189,6 +192,7 @@ class Supplier extends Employee {
 
 /** @type {{[key: string]: Action}} */
 Supplier.actions = {}
+Supplier.type = "Fornecedor"
 
 let NotFoundException = "Não encontrado."
 
@@ -236,7 +240,7 @@ class Model {
       if (!employee)
          throw NotFoundException
 
-      return this.employees[cpf]
+      return employee
    }
 
    /** @param {string} cpf @throws {NotFoundException}*/
