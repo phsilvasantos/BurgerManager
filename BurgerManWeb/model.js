@@ -76,22 +76,8 @@ class Employee extends Person {
    /** @param {string} cpf */
    constructor(cpf) {
       super(cpf)
+      /** @type {{[key: string]: string}} */
       this.profile = {}
-   }
-
-   /** @param {string} key @param {string} value */
-   setAttribute(key, value) {
-      key = key.toLowerCase()
-
-      if (key === "cpf")
-         throw "Atributo inválido."
-      
-      if (key === "email" || key === "e-mail")
-         this.email = value
-      else if (key === "nome")
-         this.name = value
-      else
-         this.profile[key] = value
    }
 
    toString() {

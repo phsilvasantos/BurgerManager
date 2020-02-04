@@ -106,7 +106,7 @@ class PersonView extends View {
             return
          }
 
-         let person = this.createPerson()
+         let person = this.getInfo()
          handler(person)
       })
    }
@@ -115,35 +115,12 @@ class PersonView extends View {
       return this.cpfInput.checkValidity() && this.emailInput.checkValidity()
    }
 
-   clearInfo() {
-      this.cpfInput.value = ""
-      this.emailInput.value = ""
-      this.nameInput.value = ""
-   }
-
-   /** @abstract @returns {Person}*/
-   createPerson() {}
-
-   /** @param {Person} person */
-   getInfo(person) {
-      person.email = this.emailInput.value
-      person.name = this.nameInput.value
-   }
-
-   open() {
-      this.clearInfo()
-      super.open()
-   }
-
-   /** @param {Person} person */
-   setInfo(person) {
-      this.cpfInput.value = person.cpf
-      this.emailInput.value = person.email
-      this.nameInput.value = person.name
-   }
+   /** @abstract @returns {Person} */
+   getInfo() {}
 }
 
-class NewClientView extends PersonView {
+/** @abstract */
+class ClientView extends PersonView {
    /** @param {HTMLDivElement} stage */
    constructor(stage) {
       super(stage)
@@ -158,11 +135,11 @@ class NewClientView extends PersonView {
       this.streetInput.placeholder = "Rua"
       this.scene.insertBefore(this.streetInput, nextSibling)
 
-      this.numberInput = this.createInput("number", "number_input")
+      this.numberInput = this.createInput("number")
       this.numberInput.placeholder = "Número"
       this.scene.insertBefore(this.numberInput, nextSibling)
 
-      this.districtInput = this.createInput("text", "district_input")
+      this.districtInput = this.createInput("text")
       this.districtInput.placeholder = "Bairro"
       this.scene.insertBefore(this.districtInput, nextSibling)
    }
@@ -190,15 +167,131 @@ class NewClientView extends PersonView {
       return super.checkValidity() && this.districtInput.value !== "" &&
          this.numberInput.checkValidity() && this.streetInput.value !== ""
    }
+}
 
-   clearInfo() {
-      super.clearInfo()
-      this.address = undefined
+class EditClientView extends ClientView {
+   /** @param {HTMLDivElement} stage */
+   constructor(stage) {
+      super(stage)
+      this.cpfInput.readOnly = true
    }
 
-   createPerson() {
+   getInfo() {
+      this.client.address = this.address
+      this.client.email = this.emailInput.value
+      this.client.name = this.nameInput.value
+      return this.client
+   }
+
+   /** @param {Client} client */
+   setInfo(client) {
+      this.client = client
+      this.address = client.address
+      this.cpfInput.value = client.cpf
+      this.emailInput.value = client.email
+      this.nameInput.value = client.name
+   }
+}
+
+class EditEmployeeView extends PersonView {
+   /** @param {HTMLDivElement} stage */
+   constructor(stage) {
+      super(stage)
+      /** @type {{[key: string]: string}} */
+      this.profile
+
+      let nextSibling = this.emailInput.nextSibling
+
+      this.scene.insertBefore(document.createElement("br"), nextSibling)
+      this.scene.insertBefore(this.createLabel("type_input", "Função"), nextSibling)
+      this.scene.insertBefore(document.createElement("br"), nextSibling)
+
+      this.typeInput = this.createInput("text", "type_input")
+      this.typeInput.readOnly = true
+      this.scene.insertBefore(this.typeInput, nextSibling)
+
+      this.scene.insertBefore(document.createElement("hr"), nextSibling)
+
+      this.profileField = document.createElement("span")
+      this.scene.insertBefore(this.profileField, nextSibling)
+
+      this.keyInput = this.createInput("text")
+      this.keyInput.placeholder = "Atributo"
+      this.scene.insertBefore(this.keyInput, nextSibling)
+
+      this.valueInput = this.createInput("text")
+      this.valueInput.placeholder = "Valor"
+      this.scene.insertBefore(this.valueInput, nextSibling)
+
+      this.addButton = this.createButton("+")
+
+      this.addButton.addEventListener("click", (_ev) => {
+         let key = this.keyInput.value.toLowerCase()
+
+         if (key === "cpf") {
+            alert("Atributo inválido.")
+            return
+         }
+
+         let value = this.valueInput.value
+
+         if (key === "email" || key === "e-mail")
+            this.emailInput.value = value
+         else if (key === "nome")
+            this.nameInput.value = value
+         else {
+            this.profile[key] = value
+            this.updateProfile()
+         }
+      })
+
+      this.scene.insertBefore(this.addButton, nextSibling)
+   }
+
+   getInfo() {
+      this.employee.email = this.emailInput.value
+      this.employee.name = this.nameInput.value
+      this.employee.profile = this.profile
+      return this.employee
+   }
+
+   /** @param {Employee} employee */
+   setInfo(employee) {
+      this.employee = employee
+      this.cpfInput.value = employee.cpf
+      this.emailInput.value = employee.email
+      this.nameInput.value = employee.name
+      this.profile = {}
+
+      for (let key in employee.profile)
+         this.profile[key] = employee.profile[key]
+
+      this.updateProfile()
+      this.typeInput.value = employee.type
+   }
+
+   updateProfile() {
+      this.profileField.innerHTML = ""
+
+      for (let key in this.profile) {
+         this.profileField.appendChild(document.createTextNode(key + ": " + this.profile[key]))
+         this.profileField.appendChild(document.createElement("br"))
+      }
+   }
+}
+
+class NewClientView extends ClientView {
+   clearInfo() {
+      this.address = undefined
+      this.cpfInput.value = ""
+      this.emailInput.value = ""
+      this.nameInput.value = 0
+   }
+
+   getInfo() {
       let client = new Client(this.cpfInput.value, this.address)
-      this.getInfo(client)
+      client.email = this.emailInput.value
+      client.name = this.nameInput.value
       return client
    }
 }
@@ -227,9 +320,10 @@ class NewEmployeeView extends PersonView {
          this.typeSelect.appendChild(this.createOption(key, factories[key].tag))
    }
 
-   createPerson() {
+   getInfo() {
       let employee = this.factories[this.typeSelect.value].create(this.cpfInput.value)
-      this.getInfo(employee)
+      employee.email = this.emailInput.value
+      employee.name = this.nameInput.value
       return employee
    }
 }
@@ -299,7 +393,7 @@ class SignInView extends View {
       this.executeButton = this.createButton("Executar")
 
       this.executeButton.addEventListener("click", (_ev) => {
-         this.actions[this.actionSelect.value].execute()
+         this.actions[this.actionSelect.value].execute(this.person)
       })
 
       this.scene.appendChild(this.executeButton)
@@ -310,15 +404,6 @@ class SignInView extends View {
       this.scene.appendChild(this.closeButton)
    }
 
-   /** @param {{[key: string]: Action}} actions */
-   bindActions(actions) {
-      this.actions = actions
-      this.actionSelect.innerHTML = ""
-
-      for (let action in actions)
-         this.actionSelect.appendChild(this.createOption(action, actions[action].tag))
-   }
-
    /** @param {(ev: MouseEvent) => void} handler */
    bindClose(handler) {
       this.closeButton.addEventListener("click", handler)
@@ -326,7 +411,13 @@ class SignInView extends View {
 
    /** @param {Person} person */
    setInfo(person) {
+      this.actions = person.actions
+      this.person = person
       this.personInfo.innerHTML = ""
       this.personInfo.appendChild(document.createTextNode(person.type + ": " + person.name))
+      this.actionSelect.innerHTML = ""
+
+      for (let action in person.actions)
+         this.actionSelect.appendChild(this.createOption(action, person.actions[action].tag))
    }
 }

@@ -12,6 +12,34 @@ class Controller {
 
 Controller.model = new Model()
 
+class EditController extends Controller {
+   /** @param {Controller} parentController @param {HTMLDivElement} stage */
+   constructor(parentController, stage) {
+      super()
+      this.parentController = parentController
+      /** @type {Person} */
+      this.person
+      this.clientView = new EditClientView(stage)
+      this.employeeView = new EditEmployeeView(stage)
+
+      let handler = (_any) => {this.parentController.openView()}
+      this.clientView.bindCancel(handler)
+      this.clientView.bindOk(handler)
+      this.employeeView.bindCancel(handler)
+      this.employeeView.bindOk(handler)
+   }
+
+   openView() {
+      if (this.person instanceof Client) {
+         this.clientView.setInfo(this.person)
+         this.clientView.open()
+      } else {
+         this.employeeView.setInfo(this.person)
+         this.employeeView.open()
+      }
+   }
+}
+
 class NewClientController extends Controller {
    /** @param {Controller} parentController @param {HTMLDivElement} stage */
    constructor(parentController, stage) {
@@ -27,6 +55,11 @@ class NewClientController extends Controller {
          this.model.clients[client.cpf] = client
          this.parentController.openView()
       })
+   }
+
+   openView() {
+      this.view.clearInfo()
+      super.openView()
    }
 }
 
@@ -53,27 +86,41 @@ class NewEmployeeController extends Controller {
          this.parentController.openView()
       })
    }
+
+   openView() {
+      this.view.clearInfo()
+      super.openView()
+   }
 }
 
 class SignInController extends Controller {
    /** @param {Controller} parentController @param {HTMLDivElement} stage */
    constructor(parentController, stage) {
       super()
+      this.editController = new EditController(this, stage)
       this.parentController = parentController
       /** @type {Person} */
       this.person
       this.view = new SignInView(stage)
 
-      let action = new Action("Fazer um teste", () => {console.log("Testando...")})
-      Manager.bindAction("makeTest", action)
-
       this.view.bindClose((_ev) => {
          this.parentController.openView()
       })
+
+      let action = new Action("Editar perfil", (executor) => {
+         this.editController.person = executor
+         this.editController.openView()
+      })
+
+      Boxer.bindAction("edit", action)
+      Client.bindAction("edit", action)
+      Cook.bindAction("edit", action)
+      Deliverer.bindAction("edit", action)
+      Manager.bindAction("edit", action)
+      Supplier.bindAction("edit", action)
    }
 
    openView() {
-      this.view.bindActions(this.person.actions)
       this.view.setInfo(this.person)
       super.openView()
    }
@@ -84,9 +131,9 @@ class PrimaryController extends Controller {
       super()
       /** @type {HTMLDivElement} */
       let stage = document.querySelector("#stage")
-      this.signInController = new SignInController(this, stage)
       this.newClientController = new NewClientController(this, stage)
       this.newEmployeeController = new NewEmployeeController(this, stage)
+      this.signInController = new SignInController(this, stage)
       this.view = new PrimaryView(stage)
 
       this.view.bindNewClient((_ev) => {
