@@ -197,7 +197,7 @@ class AddEmployeesView extends EmployeeView {
    bindSelect(handler) {
       this.candidateSelect.addEventListener("change", (_ev) => {
          let index = this.candidateSelect.selectedIndex
-         if (index === 0)
+         if (index !== 0)
             handler(index - 1)
       })
    }
