@@ -1,5 +1,5 @@
 class Address {
-   /**@param {string} district  @param {number} number @param {string} street */
+   /** @param {string} district  @param {number} number @param {string} street */
    constructor(number, street, district) {
       this.district = district
       this.number = number
@@ -11,39 +11,29 @@ class Address {
    }
 }
 
-class Action {
-   /** @param {(executor: Person) => void} handler @param {string} tag */
-   constructor(tag, handler) {
-      this.execute = handler
-      this.tag = tag
-   }
-}
-
-class Factory {
-   /** @param {(cpf: string) => Person} handler @param {string} tag */
-   constructor(tag, handler) {
-      this.create = handler
-      this.tag = tag
-   }
-}
-
 /** @abstract */
 class Person {
    /** @param {string} cpf */
    constructor(cpf) {
-      /** @type {{[key: string]: Action}} */
-      this.actions
-      this.cpf = cpf;
-      this.email = "0@z"
-      this.name = "-"
-      /** @type {string} */
-      this.type
+      this.cpf = cpf
+      /** @type {string} */ this.email
+      /** @type {string} */ this.name
+   }
+
+   /** @returns {string[]} */
+   get actions() {
+      return undefined
+   }
+
+   /** @returns {string} */
+   get type() {
+      return undefined
    }
 
    toString() {
-      let p = "cpf: " + this.cpf;
-      p += "\nnome: " + this.name;
-      p += "\ne-mail: " + this.email;
+      let p = "cpf: " + this.cpf
+      p += "\nnome: " + this.name
+      p += "\ne-mail: " + this.email
       return p;
    }
 }
@@ -53,13 +43,14 @@ class Client extends Person {
    constructor(cpf, address) {
       super(cpf)
       this.address = address
-      this.actions = Client.actions
-      this.type = Client.type
    }
 
-   /** @param {Action} action @param {string} key */
-   static bindAction(key, action) {
-      Client.actions[key] = action
+   get actions() {
+      return Client.actions
+   }
+
+   get type() {
+      return Client.type
    }
 
    toString() {
@@ -67,8 +58,7 @@ class Client extends Person {
    }
 }
 
-/** @type {{[key: string]: Action}} */
-Client.actions = {}
+/** @type {string[]} */ Client.actions = []
 Client.type = "Cliente"
 
 /** @abstract */
@@ -76,15 +66,14 @@ class Employee extends Person {
    /** @param {string} cpf */
    constructor(cpf) {
       super(cpf)
-      /** @type {{[key: string]: string}} */
-      this.profile = {}
+      /** @type {{[attribute: string]: string}} */ this.profile = {}
    }
 
    toString() {
       let e = super.toString()
 
-      for (key in this.profile)
-         e += "\n" + key + ": " + this.profile[key]
+      for (let attribute in this.profile)
+         e += "\n" + attribute + ": " + this.profile[attribute]
 
       e += "\nfunção: " + this.type.toLowerCase()
       return e
@@ -92,149 +81,98 @@ class Employee extends Person {
 }
 
 class Boxer extends Employee {
-   /** @param {string} cpf */
-   constructor(cpf) {
-      super(cpf)
-      this.actions = Boxer.actions
-      this.type = Boxer.type
+   get actions() {
+      return Boxer.actions
    }
 
-   /** @param {Action} action @param {string} key */
-   static bindAction(key, action) {
-      Boxer.actions[key] = action
+   get type() {
+      return Boxer.type
    }
 }
 
-/** @type {{[key: string]: Action}} */
-Boxer.actions = {}
+/** @type {string[]} */ Boxer.actions = []
 Boxer.type = "Embalador"
 
 class Cook extends Employee {
-   /** @param {string} cpf */
-   constructor(cpf) {
-      super(cpf)
-      this.actions = Cook.actions
-      this.type = Cook.type
+   get actions() {
+      return Cook.actions
    }
 
-   /** @param {Action} action @param {string} key */
-   static bindAction(key, action) {
-      Cook.actions[key] = action
+   get type() {
+      return Cook.type
    }
 }
 
-/** @type {{[key: string]: Action}} */
-Cook.actions = {}
+/** @type {string[]} */ Cook.actions = []
 Cook.type = "Cozinheiro"
 
 class Deliverer extends Employee {
-   /** @param {string} cpf */
-   constructor(cpf) {
-      super(cpf)
-      this.actions = Deliverer.actions
-      this.type = Deliverer.type
+   get actions() {
+      return Deliverer.actions
    }
 
-   /** @param {Action} action @param {string} key */
-   static bindAction(key, action) {
-      Deliverer.actions[key] = action
+   get type() {
+      return Deliverer.type
    }
 }
 
-/** @type {{[key: string]: Action}} */
-Deliverer.actions = {}
+/** @type {string[]} */ Deliverer.actions = []
 Deliverer.type = "Entregador"
 
 class Manager extends Employee {
    constructor() {
       super("000.000.000-00")
-      this.actions = Manager.actions
-      this.type = Manager.type
    }
 
-   /** @param {Action} action @param {string} key */
-   static bindAction(key, action) {
-      Manager.actions[key] = action
+   get actions() {
+      return Manager.actions
+   }
+
+   get type() {
+      return Manager.type
    }
 }
 
-/** @type {{[key: string]: Action}} */
-Manager.actions = {}
+/** @type {string[]} */ Manager.actions = []
 Manager.type = "Gerente"
 
 class Supplier extends Employee {
-   /** @param {string} cpf */
-   constructor(cpf) {
-      super(cpf)
-      this.actions = Supplier.actions
-      this.type = Supplier.type
+   get actions() {
+      return Supplier.actions
    }
 
-   /** @param {Action} action @param {string} key */
-   static bindAction(key, action) {
-      Supplier.actions[key] = action
+   get type() {
+      return Supplier.type
    }
 }
 
-/** @type {{[key: string]: Action}} */
-Supplier.actions = {}
+/** @type {string[]} */ Supplier.actions = []
 Supplier.type = "Fornecedor"
 
 let NotFoundException = "Não encontrado."
 
 class Model {
    constructor() {
-      /** @type {{[cpf: string]: Client}} */
-      this.clients = {}
-      let cpf = "987.654.321-09"
-      /** @type {Person} */
-      let person = new Client(cpf)
-      person.name = "Tomate"
-      person.type = "Impostor"
-      let action = new Action("Sabotar", (_ex) => {console.log("Sabotando...")})
-      Client.bindAction("sabotage", action)
-      this.clients[cpf] = person
-
-      /** @type {{[cpf: string]: Employee}} */
-      this.employees = {}
-      cpf = "123.456.789-01"
-      person = new Supplier(cpf)
-      person.name = "Cebola"
-      person.type = "Tripulante"
-      action = new Action("Consertar", (_ex) => {console.log("Consertando...")})
-      Supplier.bindAction("fix", action)
-      this.employees[cpf] = person
+      /** @type {{[cpf: string]: Client}} */ this.clients = {}
+      /** @type {{[cpf: string]: Employee}} */ this.employees = {}
+      /** @type {Employee[]} */ this.pendingEmployees = []
 
       this.manager = new Manager()
+      this.manager.email = "batata@burgerman"
       this.manager.name = "Batata"
    }
 
-   /** @param {string} cpf @throws {NotFoundException} */
-   getClient(cpf) {
-      let client = this.clients[cpf]
-
-      if (!client)
-         throw NotFoundException
-
-      return client
-   }
-
-   /** @param {string} cpf @throws {NotFoundException} */
-   getEmployee(cpf) {
-      let employee = this.employees[cpf]
-
-      if (!employee)
-         throw NotFoundException
-
-      return employee
-   }
-
-   /** @param {string} cpf @throws {NotFoundException}*/
+   /** @param {string} cpf @returns {Person} @throws {NotFoundException}*/
    getPerson(cpf) {
-      try {
-         return this.getClient(cpf)
-      } catch (ex) {
-         return this.getEmployee(cpf)
+      let person = this.clients[cpf]
+
+      if (!person) {
+         person = this.employees[cpf]
+
+         if (!person)
+            throw NotFoundException
       }
+
+      return person
    }
 }

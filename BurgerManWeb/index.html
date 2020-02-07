@@ -7,21 +7,15 @@
       <title>BurgerMan</title>
    </head>
    <body>
+      <div id="log"></div>
       <div id="stage">Em manutenção.</div>
       <script src="model.js"></script>
       <script src="view.js"></script>
+      <script src="view.order.js"></script>
+      <script src="view.person.js"></script>
       <script src="controller.js"></script>
-      <!--div class="scene" id="profile_scene" style="display: none">
-         ...
-         <div id="profile_field" style="display: none">
-            <span id="profile"></span>
-            <input id="key" />
-            :
-            <input id="value" />
-            <button type="button">+</button>
-         </div>
-         <button type="button">OK</button>
-         <button type="button">Cancelar</button>
-      </div-->
+      <script>
+         let burgerMan = new PrimaryController(); burgerMan.openView()
+      </script>
    </body>
 </html>
