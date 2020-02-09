@@ -1,0 +1,8 @@
+{
+   "compilerOptions": {
+      "outFile": "script.js",
+      "removeComments": true,
+      "target": "es6"
+   },
+   "files": ["script.ts"]
+}
