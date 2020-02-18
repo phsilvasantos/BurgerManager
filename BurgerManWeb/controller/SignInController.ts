@@ -15,7 +15,7 @@ abstract class Command {
       this.controller = controller
    }
 
-   execute(agent: Person) {
+   execute(_agent: Person) {
       this.controller.openView()
    }
 }
@@ -42,7 +42,7 @@ class EditClient extends Command {
    execute(agent: Client) {
       let controller = this.controller as EditClientController
       controller.client = agent
-      super.execute(agent)
+      super.execute(null)
    }
 }
 
@@ -58,22 +58,21 @@ class EditEmployee extends Command {
    execute(agent: Employee) {
       let controller = this.controller as EditEmployeeController
       controller.employee = agent
-      super.execute(agent)
+      super.execute(null)
    }
 }
 
 class SignInController extends Controller {
-   private actions: {[action: string]: Command}
+   private actions: Map<string, Command>
    private _person: Person
 
    constructor(parent: Controller) {
       super(new SignInView(), parent)
 
-      this.actions = {
-         addEmployees: new AddEmployees(this),
-         editClient: new EditClient(this),
-         editEmployee: new EditEmployee(this)
-      }
+      this.actions = new Map<string, Command>()
+      this.actions.set("addEmployees", new AddEmployees(this))
+      this.actions.set("editClient", new EditClient(this))
+      this.actions.set("editEmployee", new EditEmployee(this))
 
       Boxer.actions.push("editEmployee")
       Client.actions.push("editClient")
@@ -93,7 +92,7 @@ class SignInController extends Controller {
 
    private handleExecute(_event: MouseEvent) {
       let view = this.view as SignInView
-      this.actions[view.action].execute(this._person)
+      this.actions.get(view.action).execute(this._person)
    }
 
    private handleSignOut(_event: MouseEvent) {
@@ -101,10 +100,10 @@ class SignInController extends Controller {
    }
 
    openView(message?: string) {
-      let actions: {[action: string]: string} = {}
+      let actions = new Map<string, string>()
 
       for (let action of this._person.actions)
-         actions[action] = this.actions[action].tag
+         actions.set(action, this.actions.get(action).tag)
 
       let view = this.view as SignInView
       view.actions = actions

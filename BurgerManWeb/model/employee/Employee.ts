@@ -1,11 +1,11 @@
 /// <reference path="../Person.ts" />
 
 abstract class Employee extends Person {
-   profile: {[attribute: string]: string}
+   profile: Map<string, string>
 
    constructor(cpf: string) {
       super(cpf)
-      this.profile = {}
+      this.profile = new Map<string, string>()
    }
 
    toString() {

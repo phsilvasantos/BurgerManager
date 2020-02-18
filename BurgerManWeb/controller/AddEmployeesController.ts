@@ -14,7 +14,7 @@ class AddEmployeesController extends Controller {
       try {
          let view = this.view as AddEmployeesView
          let index = view.candidateIndex
-         let employee = this.model.candidates[index]
+         let employee = this.model.getCandidate(index)
          this.model.employee = employee
          this.model.removeCandidate(index)
          view.candidates = this.model.candidates.map((candidate) => {return candidate.name})
@@ -33,11 +33,7 @@ class AddEmployeesController extends Controller {
    private handleSelect(_event: Event) {
       let view = this.view as AddEmployeesView
       view.clear()
-      let employee = this.model.candidates[view.candidateIndex]
-
-      if (!employee)
-         return
-
+      let employee = this.model.getCandidate(view.candidateIndex)
       view.cpf = employee.cpf
       view.email = employee.email
       view.name = employee.name

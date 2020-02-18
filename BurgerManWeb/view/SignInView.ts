@@ -27,11 +27,11 @@ class SignInView extends View {
       return this.actionSelect.value
    }
 
-   set actions(actions: {[action: string]: string}) {
+   set actions(actions: Map<string, string>) {
       this.actionSelect.innerHTML = ""
 
-      for (let action in actions)
-         this.actionSelect.appendChild(this.createOption(action, actions[action]))
+      for (let [action, tag] of actions)
+         this.actionSelect.appendChild(this.createOption(action, tag))
    }
 
    bindExecute(handler: (event: MouseEvent) => void) {

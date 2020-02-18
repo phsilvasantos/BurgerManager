@@ -51,17 +51,16 @@ class SupplierFactory implements Factory {
 }
 
 class NewEmployeeController extends Controller {
-   private factories: {[type: string]: Factory}
+   private factories: Map<string, Factory>
 
    constructor(parent: Controller) {
       super(new NewEmployeeView(), parent)
 
-      this.factories = {
-         boxer: new BoxerFactory(),
-         cook: new CookFactory(),
-         deliverer: new DelivererFactory(),
-         supplier: new SupplierFactory()
-      }
+      this.factories = new Map<string, Factory>()
+      this.factories.set("boxer", new BoxerFactory())
+      this.factories.set("cook", new CookFactory())
+      this.factories.set("deliverer", new DelivererFactory())
+      this.factories.set("supplier", new SupplierFactory())
 
       let view = this.view as NewEmployeeView
       view.bindCancel(this.handleCancel.bind(this))
@@ -75,7 +74,7 @@ class NewEmployeeController extends Controller {
    private handleOk(_event: MouseEvent) {
       try {
          let view = this.view as NewEmployeeView
-         let employee = this.factories[view.type].create(view.cpf)
+         let employee = this.factories.get(view.type).create(view.cpf)
          employee.email = view.email
          employee.name = view.name
          this.model.candidate = employee
@@ -88,10 +87,10 @@ class NewEmployeeController extends Controller {
    openView(message?: string) {
       let view = this.view as NewEmployeeView
       view.clear()
-      let types: {[type: string]: string} = {}
+      let types = new Map<string, string>()
 
-      for (let type in this.factories)
-         types[type] = this.factories[type].tag
+      for (let [type, factory] of this.factories)
+         types.set(type, factory.tag)
 
       view.types = types
       super.openView(message)

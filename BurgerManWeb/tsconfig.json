@@ -4,5 +4,5 @@
       "removeComments": true,
       "target": "es6"
    },
-   "files": ["script.ts"]
+   "files": ["main.ts"]
 }

@@ -1,7 +1,7 @@
 /// <reference path="EmployeeView.ts" />
 
 class EditEmployeeView extends EmployeeView {
-   private _profile: {[attribute: string]: string}
+   private _profile: Map<string, string>
    private addButton: HTMLButtonElement
    private attributeInput: HTMLInputElement
    private cancelButton: HTMLButtonElement
@@ -11,6 +11,7 @@ class EditEmployeeView extends EmployeeView {
 
    constructor() {
       super()
+      this._profile = new Map<string, string>()
 
       this.scene.appendChild(document.createElement("hr"))
       this.scene.appendChild(this.createLabel("Perfil", "attribute_input"))
@@ -54,20 +55,20 @@ class EditEmployeeView extends EmployeeView {
       else if (attribute === "nome")
          this.nameInput.value = value
       else {
-         this._profile[attribute] = value
+         this._profile.set(attribute, value)
          this.displayProfile()
       }
    }
 
    get profile() {
-      return this._profile
+      return new Map<string, string>(this._profile)
    }
 
    set profile(profile) {
-      this._profile = {}
+      this._profile.clear()
 
-      for (let attribute in profile)
-         this.profile[attribute] = profile[attribute]
+      for (let [attribute, value] of profile)
+         this.profile.set(attribute, value)
 
       this.displayProfile()
    }

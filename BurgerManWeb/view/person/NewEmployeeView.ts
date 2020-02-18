@@ -28,11 +28,11 @@ class NewEmployeeView extends PersonView {
       return this.typeSelect.value
    }
 
-   set types(types: {[type: string]: string}) {
+   set types(types: Map<string, string>) {
       this.typeSelect.innerHTML = ""
 
-      for (let type in types)
-         this.typeSelect.appendChild(this.createOption(type, types[type]))
+      for (let [type, tag] of types)
+         this.typeSelect.appendChild(this.createOption(type, tag))
    }
 
    bindCancel(handler: (event: MouseEvent) => void) {
