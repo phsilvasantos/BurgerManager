@@ -68,7 +68,7 @@ class EditEmployeeView extends EmployeeView {
       this._profile.clear()
 
       for (let [attribute, value] of profile)
-         this.profile.set(attribute, value)
+         this._profile.set(attribute, value)
 
       this.displayProfile()
    }
@@ -90,12 +90,12 @@ class EditEmployeeView extends EmployeeView {
    private displayProfile() {
       this.profileField.innerHTML = ""
 
-      for (let attribute in this.profile) {
+      for (let [attribute, value] of this._profile) {
          if (this.profileField.firstChild)
             this.profileField.appendChild(document.createElement("br"))
 
          this.profileField.appendChild(
-            document.createTextNode(attribute + ": " + this.profile[attribute])
+            document.createTextNode(attribute + ": " + value)
          )
       }
    }

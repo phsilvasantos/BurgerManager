@@ -269,9 +269,9 @@ class Model {
         this.clients.set(client.cpf, client);
     }
     set employee(employee) {
-        if (this.employees[employee.cpf])
+        if (this.employees.has(employee.cpf))
             throw Model.existingException;
-        this.employees[employee.cpf] = employee;
+        this.employees.set(employee.cpf, employee);
     }
     get manager() {
         return this._manager;
@@ -600,11 +600,14 @@ class AddEmployeesController extends Controller {
     handleSelect(_event) {
         let view = this.view;
         view.clear();
-        let employee = this.model.getCandidate(view.candidateIndex);
-        view.cpf = employee.cpf;
-        view.email = employee.email;
-        view.name = employee.name;
-        view.type = employee.type;
+        try {
+            let employee = this.model.getCandidate(view.candidateIndex);
+            view.cpf = employee.cpf;
+            view.email = employee.email;
+            view.name = employee.name;
+            view.type = employee.type;
+        }
+        catch (ex) { }
     }
     openView(message) {
         let view = this.view;
@@ -700,7 +703,7 @@ class EditEmployeeView extends EmployeeView {
     set profile(profile) {
         this._profile.clear();
         for (let [attribute, value] of profile)
-            this.profile.set(attribute, value);
+            this._profile.set(attribute, value);
         this.displayProfile();
     }
     bindCancel(handler) {
@@ -716,10 +719,10 @@ class EditEmployeeView extends EmployeeView {
     }
     displayProfile() {
         this.profileField.innerHTML = "";
-        for (let attribute in this.profile) {
+        for (let [attribute, value] of this._profile) {
             if (this.profileField.firstChild)
                 this.profileField.appendChild(document.createElement("br"));
-            this.profileField.appendChild(document.createTextNode(attribute + ": " + this.profile[attribute]));
+            this.profileField.appendChild(document.createTextNode(attribute + ": " + value));
         }
     }
 }
@@ -738,7 +741,7 @@ class EditEmployeeController extends Controller {
     }
     handleOk(_event) {
         let view = this.view;
-        this._employee.email = view.name;
+        this._employee.email = view.email;
         this._employee.name = view.name;
         this._employee.profile = view.profile;
         this.parent.openView("Perfil de " + this._employee.name + " alterado.");

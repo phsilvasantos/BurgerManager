@@ -21,7 +21,7 @@ class EditEmployeeController extends Controller {
 
    private handleOk(_event: MouseEvent) {
       let view = this.view as EditEmployeeView
-      this._employee.email = view.name
+      this._employee.email = view.email
       this._employee.name = view.name
       this._employee.profile = view.profile
       this.parent.openView("Perfil de " + this._employee.name + " alterado.")

@@ -31,10 +31,10 @@ class Model {
    }
 
    set employee(employee: Employee) {
-      if (this.employees[employee.cpf])
+      if (this.employees.has(employee.cpf))
          throw Model.existingException
 
-      this.employees[employee.cpf] = employee
+      this.employees.set(employee.cpf, employee)
    }
 
    get manager() {

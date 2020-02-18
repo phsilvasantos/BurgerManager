@@ -33,11 +33,14 @@ class AddEmployeesController extends Controller {
    private handleSelect(_event: Event) {
       let view = this.view as AddEmployeesView
       view.clear()
-      let employee = this.model.getCandidate(view.candidateIndex)
-      view.cpf = employee.cpf
-      view.email = employee.email
-      view.name = employee.name
-      view.type = employee.type
+
+      try {
+         let employee = this.model.getCandidate(view.candidateIndex)
+         view.cpf = employee.cpf
+         view.email = employee.email
+         view.name = employee.name
+         view.type = employee.type
+      } catch (ex) {}
    }
 
    openView(message?: string) {
