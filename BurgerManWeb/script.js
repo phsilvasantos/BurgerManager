@@ -227,7 +227,7 @@ Client.type = "Cliente";
 class Employee extends Person {
     constructor(cpf) {
         super(cpf);
-        this.profile = {};
+        this.profile = new Map();
     }
     toString() {
         let e = super.toString();
@@ -253,8 +253,8 @@ Manager.type = "Gerente";
 class Model {
     constructor() {
         this._candidates = [];
-        this.clients = {};
-        this.employees = {};
+        this.clients = new Map();
+        this.employees = new Map();
         this._manager = new Manager();
         this._manager.name = "Batata";
         this._manager.email = "batata@burgerman";
@@ -266,7 +266,7 @@ class Model {
         this._candidates.push(candidate);
     }
     set client(client) {
-        this.clients[client.cpf] = client;
+        this.clients.set(client.cpf, client);
     }
     set employee(employee) {
         if (this.employees[employee.cpf])
@@ -279,10 +279,16 @@ class Model {
     clearCandidates() {
         this._candidates = [];
     }
+    getCandidate(index) {
+        let candidate = this._candidates[index];
+        if (!candidate)
+            throw Model.notFoundException;
+        return candidate;
+    }
     getPerson(cpf) {
-        let person = this.employees[cpf];
+        let person = this.employees.get(cpf);
         if (!person) {
-            person = this.clients[cpf];
+            person = this.clients.get(cpf);
             if (!person)
                 throw Model.notFoundException;
         }
@@ -399,8 +405,8 @@ class NewEmployeeView extends PersonView {
     }
     set types(types) {
         this.typeSelect.innerHTML = "";
-        for (let type in types)
-            this.typeSelect.appendChild(this.createOption(type, types[type]));
+        for (let [type, tag] of types)
+            this.typeSelect.appendChild(this.createOption(type, tag));
     }
     bindCancel(handler) {
         this.cancelButton.addEventListener("click", handler);
@@ -444,12 +450,11 @@ class SupplierFactory {
 class NewEmployeeController extends Controller {
     constructor(parent) {
         super(new NewEmployeeView(), parent);
-        this.factories = {
-            boxer: new BoxerFactory(),
-            cook: new CookFactory(),
-            deliverer: new DelivererFactory(),
-            supplier: new SupplierFactory()
-        };
+        this.factories = new Map();
+        this.factories.set("boxer", new BoxerFactory());
+        this.factories.set("cook", new CookFactory());
+        this.factories.set("deliverer", new DelivererFactory());
+        this.factories.set("supplier", new SupplierFactory());
         let view = this.view;
         view.bindCancel(this.handleCancel.bind(this));
         view.bindOk(this.handleOk.bind(this));
@@ -460,7 +465,7 @@ class NewEmployeeController extends Controller {
     handleOk(_event) {
         try {
             let view = this.view;
-            let employee = this.factories[view.type].create(view.cpf);
+            let employee = this.factories.get(view.type).create(view.cpf);
             employee.email = view.email;
             employee.name = view.name;
             this.model.candidate = employee;
@@ -473,9 +478,9 @@ class NewEmployeeController extends Controller {
     openView(message) {
         let view = this.view;
         view.clear();
-        let types = {};
-        for (let type in this.factories)
-            types[type] = this.factories[type].tag;
+        let types = new Map();
+        for (let [type, factory] of this.factories)
+            types.set(type, factory.tag);
         view.types = types;
         super.openView(message);
     }
@@ -498,8 +503,8 @@ class SignInView extends View {
     }
     set actions(actions) {
         this.actionSelect.innerHTML = "";
-        for (let action in actions)
-            this.actionSelect.appendChild(this.createOption(action, actions[action]));
+        for (let [action, tag] of actions)
+            this.actionSelect.appendChild(this.createOption(action, tag));
     }
     bindExecute(handler) {
         this.executeButton.addEventListener("click", handler);
@@ -577,7 +582,7 @@ class AddEmployeesController extends Controller {
         try {
             let view = this.view;
             let index = view.candidateIndex;
-            let employee = this.model.candidates[index];
+            let employee = this.model.getCandidate(index);
             this.model.employee = employee;
             this.model.removeCandidate(index);
             view.candidates = this.model.candidates.map((candidate) => { return candidate.name; });
@@ -595,9 +600,7 @@ class AddEmployeesController extends Controller {
     handleSelect(_event) {
         let view = this.view;
         view.clear();
-        let employee = this.model.candidates[view.candidateIndex];
-        if (!employee)
-            return;
+        let employee = this.model.getCandidate(view.candidateIndex);
         view.cpf = employee.cpf;
         view.email = employee.email;
         view.name = employee.name;
@@ -655,6 +658,7 @@ class EditClientController extends Controller {
 class EditEmployeeView extends EmployeeView {
     constructor() {
         super();
+        this._profile = new Map();
         this.scene.appendChild(document.createElement("hr"));
         this.scene.appendChild(this.createLabel("Perfil", "attribute_input"));
         this.profileField = document.createElement("p");
@@ -686,17 +690,17 @@ class EditEmployeeView extends EmployeeView {
         else if (attribute === "nome")
             this.nameInput.value = value;
         else {
-            this._profile[attribute] = value;
+            this._profile.set(attribute, value);
             this.displayProfile();
         }
     }
     get profile() {
-        return this._profile;
+        return new Map(this._profile);
     }
     set profile(profile) {
-        this._profile = {};
-        for (let attribute in profile)
-            this.profile[attribute] = profile[attribute];
+        this._profile.clear();
+        for (let [attribute, value] of profile)
+            this.profile.set(attribute, value);
         this.displayProfile();
     }
     bindCancel(handler) {
@@ -754,7 +758,7 @@ class Command {
     constructor(controller) {
         this.controller = controller;
     }
-    execute(agent) {
+    execute(_agent) {
         this.controller.openView();
     }
 }
@@ -776,7 +780,7 @@ class EditClient extends Command {
     execute(agent) {
         let controller = this.controller;
         controller.client = agent;
-        super.execute(agent);
+        super.execute(null);
     }
 }
 class EditEmployee extends Command {
@@ -789,17 +793,16 @@ class EditEmployee extends Command {
     execute(agent) {
         let controller = this.controller;
         controller.employee = agent;
-        super.execute(agent);
+        super.execute(null);
     }
 }
 class SignInController extends Controller {
     constructor(parent) {
         super(new SignInView(), parent);
-        this.actions = {
-            addEmployees: new AddEmployees(this),
-            editClient: new EditClient(this),
-            editEmployee: new EditEmployee(this)
-        };
+        this.actions = new Map();
+        this.actions.set("addEmployees", new AddEmployees(this));
+        this.actions.set("editClient", new EditClient(this));
+        this.actions.set("editEmployee", new EditEmployee(this));
         Boxer.actions.push("editEmployee");
         Client.actions.push("editClient");
         Cook.actions.push("editEmployee");
@@ -815,15 +818,15 @@ class SignInController extends Controller {
     }
     handleExecute(_event) {
         let view = this.view;
-        this.actions[view.action].execute(this._person);
+        this.actions.get(view.action).execute(this._person);
     }
     handleSignOut(_event) {
         this.parent.openView("Até a próxima.");
     }
     openView(message) {
-        let actions = {};
+        let actions = new Map();
         for (let action of this._person.actions)
-            actions[action] = this.actions[action].tag;
+            actions.set(action, this.actions.get(action).tag);
         let view = this.view;
         view.actions = actions;
         super.openView(message);
